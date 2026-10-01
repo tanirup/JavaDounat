@@ -2,9 +2,22 @@
 
 ## チームメンバーが最初にすること
 
-### 1. Gitを設定する
+### 1. プロジェクトをクローンする
 
-このPCで初めてGitを使う場合だけ、名前とメールアドレスを設定します。これは、誰がコミットしたか分かるようにするための設定です。
+最初に、GitHubのリポジトリ画面で「Code」からHTTPSのURLをコピーし、Eclipseまたはターミナルを使って自分のPCへクローンします。
+
+ターミナルを使う場合：
+
+```bash
+git clone https://github.com/tanirup/JavaDounat.git
+cd JavaDounat
+```
+
+Eclipseを使う場合は、「File」→「Import」→「Git」→「Projects from Git」→「Clone URI」を選び、コピーしたURLを入力します。
+
+### 2. Gitを設定する
+
+クローン後、このPCで初めてGitを使う場合だけ、名前とメールアドレスを設定します。これは、誰がコミットしたか分かるようにするための設定です。
 
 ```bash
 git config --global user.name "自分の名前またはGitHubユーザー名"
@@ -17,14 +30,7 @@ git config --global user.email "GitHubに登録したメールアドレス"
 git config --global --list
 ```
 
-### 2. プロジェクトをクローンする
-
-GitHubのリポジトリ画面で「Code」からHTTPSのURLをコピーし、保存したい場所で実行します。
-
-```bash
-git clone https://github.com/tanirup/JavaDounat.git
-cd JavaDounat
-```
+> **重要：** `git config`はクローン前でなくても問題ありませんが、最初のコミットを行う前には設定してください。GitHubへのログイン・認証とは別の設定です。
 
 ## 毎回の作業手順
 
@@ -113,7 +119,7 @@ git push
 Pull Requestは、「自分のブランチで行った変更を`main`へ入れてよいか確認してもらう機能」です。
 
 1. GitHubで対象のリポジトリを開きます。
-2. 「Pull request」を押します。
+2. 「Compare & pull request」を押します。
 3. 何を変更したか入力してPull Requestを作ります。
 4. チームメンバーに内容を確認してもらいます。
 5. 問題がなければ`main`へマージします。
