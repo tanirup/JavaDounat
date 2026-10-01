@@ -147,3 +147,80 @@ git commit -m "変更内容"           # 変更を記録
 git push -u origin feature-作業名  # 初回のプッシュ
 git push                           # 2回目以降のプッシュ
 ```
+
+## みんなの変更を完成版にまとめる方法
+
+それぞれが作ったコードは、自分の作業用ブランチからGitHubへプッシュします。
+
+たとえば、`feature-login`ブランチで作業した場合：
+
+```bash
+git add .
+git commit -m "ログイン画面を追加"
+git push -u origin feature-login
+```
+
+ただし、プッシュしただけでは`main`に反映されません。プッシュ後にGitHubでPull Requestを作り、内容を確認してから`main`へマージします。
+
+1. 各自が自分のブランチで作業する。
+2. 自分のブランチをGitHubへプッシュする。
+3. GitHubでPull Requestを作る。
+4. チームメンバーが変更内容を確認する。
+5. 問題がなければ`main`へマージする。
+
+```text
+各自のブランチ
+↓ push
+GitHub
+↓ Pull Request
+内容を確認
+↓ merge
+mainに全員のコードがまとまる
+```
+
+全員のPull Requestを`main`へマージすると、完成した機能が1つにまとまります。マージ後は、各自のPCでも完成版を取り込みます。
+
+```bash
+git switch main
+git pull origin main
+```
+
+> **注意：** 同じファイルの同じ部分を複数人が編集すると、コンフリクトが発生することがあります。事前に担当するファイルや機能を分けておくと安全です。
+
+## Pull Requestの作り方
+
+Pull Requestは、基本的に各メンバーが自分のブランチをプッシュした後、自分で作成します。
+
+1. 自分の作業用ブランチをGitHubへプッシュする。
+2. GitHubで`JavaDounat`リポジトリを開く。
+3. 表示された「Compare & pull request」を押す。
+4. `base: main`、`compare: 自分のブランチ名`になっているか確認する。
+5. タイトルに何を変更したか書く。
+6. 説明欄に作業内容や確認してほしいことを書く。
+7. 「Create pull request」を押す。
+8. 管理者へ確認をお願いする。
+
+```text
+自分のブランチ（compare）
+↓ Pull Requestを作成
+main（base）
+```
+
+タイトルの例：
+
+```text
+ログイン画面を追加
+```
+
+説明欄の例：
+
+```text
+## 変更内容
+- ログイン画面を追加しました
+- 入力フォームのデザインを調整しました
+
+## 確認してほしいこと
+- スマートフォンでもレイアウトが崩れないか
+```
+
+> **ルール：** Pull Requestは各メンバーが自分で作成します。管理者が確認する前に、自分で`main`へマージしないでください。
