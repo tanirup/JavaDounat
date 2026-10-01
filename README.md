@@ -118,6 +118,40 @@ Pull Requestは、「自分のブランチで行った変更を`main`へ入れ�
 4. チームメンバーに内容を確認してもらいます。
 5. 問題がなければ`main`へマージします。
 
+#### `feature-login`で作業した場合の例
+
+まず、ログイン画面の変更をコミットし、`feature-login`ブランチをGitHubへプッシュします。
+
+```bash
+git switch feature-login
+git add .
+git commit -m "ログイン画面を追加"
+git push -u origin feature-login
+```
+
+プッシュ後、GitHubで`JavaDounat`リポジトリを開き、「Compare & pull request」を押します。次の組み合わせになっていることを確認してください。
+
+```text
+base: main ← 変更を入れる完成版
+compare: feature-login ← 自分が作業したブランチ
+```
+
+Pull Requestには、たとえば次のように入力します。
+
+```text
+タイトル：ログイン画面を追加
+
+変更内容：
+- ログイン画面を追加しました
+- メールアドレスとパスワードの入力欄を作りました
+
+確認してほしいこと：
+- 正しく画面が表示されるか
+- スマートフォンでレイアウトが崩れないか
+```
+
+入力後に「Create pull request」を押し、管理者へ確認をお願いします。自分で`main`へマージせず、確認が終わるまで待ちます。
+
 マージ後に次の作業を始めるときは、再び`main`へ戻して最新状態を取り込み、新しいブランチを作ります。
 
 ```bash
