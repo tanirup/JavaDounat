@@ -22,13 +22,6 @@ git config --global --list
 GitHubのリポジトリ画面で「Code」からHTTPSのURLをコピーし、保存したい場所で実行します。
 
 ```bash
-git clone リポジトリのURL
-cd リポジトリ名
-```
-
-例：
-
-```bash
 git clone https://github.com/tanirup/JavaDounat.git
 cd JavaDounat
 ```
