@@ -113,7 +113,7 @@ git push
 Pull Requestは、「自分のブランチで行った変更を`main`へ入れてよいか確認してもらう機能」です。
 
 1. GitHubで対象のリポジトリを開きます。
-2. 「Compare & pull request」を押します。
+2. 「Pull request」を押します。
 3. 何を変更したか入力してPull Requestを作ります。
 4. チームメンバーに内容を確認してもらいます。
 5. 問題がなければ`main`へマージします。
