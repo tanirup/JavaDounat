@@ -29,8 +29,8 @@ cd リポジトリ名
 例：
 
 ```bash
-git clone https://github.com/ユーザー名/リポジトリ名.git
-cd リポジトリ名
+git clone https://github.com/tanirup/JavaDounat.git
+cd JavaDounat
 ```
 
 ## 毎回の作業手順
