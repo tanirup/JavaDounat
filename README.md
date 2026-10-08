@@ -4,34 +4,19 @@ JavaDounatのチーム開発用Git / GitHubルールです。
 
 ---
 
-# まず最初にやること
+# 最初にやること
 
 ## 1. GitHubの招待を承認する
 
-管理者からJavaDounatへの招待が届いたら承認してください。
+管理者から届いたJavaDounatリポジトリへの招待を承認してください。
 
----
-
-## 2. JavaDounatをクローンする
+## 2. リポジトリをクローンする
 
 ```bash
 git clone https://github.com/tanirup/JavaDounat.git
 cd JavaDounat
+code .
 ```
-
-Eclipseを使う場合は、
-
-```text
-File
-→ Import
-→ Git
-→ Projects from Git
-→ Clone URI
-```
-
-からクローンしてください。
-
----
 
 ## 3. Gitの名前とメールを設定する
 
@@ -42,26 +27,41 @@ git config --global user.name "自分のGitHubユーザー名"
 git config --global user.email "自分のメールアドレス"
 ```
 
-確認：
+## 4. Personal Access Tokenを作る
 
-```bash
-git config --global --list
+GitHubで、
+
+```text
+Settings
+→ Developer settings
+→ Personal access tokens
+→ Tokens (classic)
 ```
+
+から作成します。
+
+権限は、
+
+```text
+repo
+```
+
+にチェックしてください。
+
+Tokenは他の人と共有しないでください。
 
 ---
 
 # 作業を始めるとき
 
-## 1. mainを最新にする
+まずmainを最新にします。
 
 ```bash
 git switch main
 git pull origin main
 ```
 
----
-
-## 2. 自分の作業ブランチを作る
+次に、自分の作業ブランチを作ります。
 
 ```bash
 git switch -c feature-作業名
@@ -73,47 +73,29 @@ git switch -c feature-作業名
 git switch -c feature-login
 ```
 
-```bash
-git switch -c feature-mainpage
-```
-
 現在のブランチ確認：
 
 ```bash
 git branch
 ```
 
-`*`が付いているブランチが現在のブランチです。
-
 ---
 
 # コードを書いたあと
 
-## 1. 変更を確認
+変更を確認します。
 
 ```bash
 git status
 ```
 
----
-
-## 2. 変更を追加
-
-全部追加する場合：
+変更を追加します。
 
 ```bash
 git add .
 ```
 
-1ファイルだけ追加する場合：
-
-```bash
-git add src/Main.java
-```
-
----
-
-## 3. コミット
+コミットします。
 
 ```bash
 git commit -m "変更内容"
@@ -127,9 +109,9 @@ git commit -m "ログイン画面を追加"
 
 ---
 
-## 4. GitHubへPush
+# GitHubへPushする
 
-初回：
+初回Push：
 
 ```bash
 git push -u origin feature-作業名
@@ -149,9 +131,7 @@ git push
 
 ---
 
-# Pushするときにログインを求められた場合
-
-GitHubの通常のパスワードは使いません。
+# GitHubのログインを求められたとき
 
 ```text
 Username
@@ -161,25 +141,7 @@ Password
 → Personal Access Token
 ```
 
-Tokenは各メンバーが自分用に作成してください。
-
-```text
-GitHub
-→ Settings
-→ Developer settings
-→ Personal access tokens
-→ Tokens (classic)
-```
-
-権限は基本、
-
-```text
-repo
-```
-
-にチェックでOKです。
-
-Tokenは他の人と共有しないでください。
+GitHubの通常のパスワードは使いません。
 
 ---
 
@@ -193,7 +155,7 @@ Compare & pull request
 
 を押します。
 
-次の状態になっていることを確認してください。
+次の状態になっているか確認します。
 
 ```text
 base: main
@@ -207,39 +169,21 @@ base: main
 compare: feature-login
 ```
 
-タイトル例：
-
-```text
-ログイン画面を追加
-```
-
-説明例：
-
-```text
-## 変更内容
-- ログイン画面を追加しました
-- 入力欄を追加しました
-
-## 確認してほしいこと
-- 正しく表示されるか
-- エラーが出ないか
-```
-
-最後に、
+その後、
 
 ```text
 Create pull request
 ```
 
-を押してください。
+を押します。
 
 管理者が確認するまで、自分でmainへマージしないでください。
 
 ---
 
-# マージされたあとの作業
+# mainへマージされたあと
 
-mainへ戻します。
+mainへ戻ります。
 
 ```bash
 git switch main
@@ -251,7 +195,7 @@ git switch main
 git pull origin main
 ```
 
-次の作業をするときは、新しいブランチを作ります。
+次の作業を始める場合は、新しいブランチを作ります。
 
 ```bash
 git switch -c feature-次の作業名
@@ -259,87 +203,96 @@ git switch -c feature-次の作業名
 
 ---
 
-# Eclipseを使う場合
+# Pushできないとき
 
-## コミット
-
-```text
-プロジェクトを右クリック
-→ チーム
-→ コミット
-```
-
-変更したファイルをステージして、コミットメッセージを書きます。
-
----
-
-## Push
-
-```text
-プロジェクトを右クリック
-→ チーム
-→ HEAD のプッシュ
-```
-
-または、
-
-```text
-ブランチのプッシュ
-```
-
-を選択します。
-
----
-
-# Pushできない場合
-
-## non-fast-forward
-
-```text
-rejected - non-fast-forward
-```
-
-と出た場合は、GitHub側に自分が持っていない変更があります。
-
-Eclipse：
-
-```text
-プロジェクト右クリック
-→ チーム
-→ プル
-→ もう一度Push
-```
-
-ターミナル：
+現在のブランチを確認します。
 
 ```bash
-git pull
+git branch
+```
+
+例えば `feature-login` ：
+
+```bash
+git pull origin feature-login
 git push
 ```
 
-※ 強制Pushはしないでください。
+分からない場合は強制Pushしないでください。
+
+```bash
+git push --force
+```
+
+は使用しないでください。
+
+---
+
+# 作業終了時にやること
+
+その日の作業を終える前に、変更が残っていないか確認します。
+
+```bash
+git status
+```
+
+変更があるとき：
+
+```bash
+git add .
+git commit -m "本日の作業内容"
+git push
+```
+
+作業が完成している場合は、GitHubでPull Requestを作成します。
+
+```text
+作業終了
+↓
+git status
+↓
+git add .
+↓
+git commit
+↓
+git push
+↓
+完成していればPull Request
+```
+
+`git status`で、
+
+```text
+nothing to commit, working tree clean
+```
+
+と表示されれば、未コミットの変更はありません。
 
 ---
 
 # チームルール
 
 - mainへ直接Pushしない
-- 必ず自分のfeatureブランチを使う
-- 作業前にmainを最新にする
-- コミットメッセージは分かりやすく書く
+- 必ずfeatureブランチを使う
+- 作業前にmainをPullする
+- コミットメッセージは変更内容が分かるようにする
 - Tokenやパスワードを共有しない
 - `.env`やAPIキーをPushしない
 - 強制Pushはしない
-- エラーが出たら無理に操作しない
+- 分からないエラーが出たら勝手に操作しない
 
 ---
 
-# 一番大事な流れ
+# 基本の流れ
 
 ```text
+GitHubの招待を承認
+↓
+clone
+↓
 mainを最新にする
 ↓
-自分のブランチを作る
+featureブランチを作る
 ↓
 コードを書く
 ↓
@@ -354,6 +307,10 @@ Pull Request
 レビュー
 ↓
 mainへマージ
+↓
+mainをPull
+↓
+次の作業へ
 ```
 
 ---
@@ -368,6 +325,7 @@ git switch main
 git pull origin main
 
 git switch -c feature-作業名
+git switch feature-作業名
 
 git add .
 git commit -m "変更内容"
