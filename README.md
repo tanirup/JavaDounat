@@ -318,8 +318,83 @@ mainへマージ
 ```
 
 ---
+# ブランチの削除・他の人のブランチを使う方法
+
+## ブランチを削除する
+
+### 自分のPCから削除
+
+まず `main` に移動します。
+
+```bash
+git switch main
+```
+
+削除：
+
+```bash
+git branch -d ブランチ名
+```
+
+例：
+
+```bash
+git branch -d feature-login
+```
+
+### GitHub上から削除
+
+```bash
+git push origin --delete ブランチ名
+```
+
+例：
+
+```bash
+git push origin --delete feature-login
+```
+
+GitHubの `Branches` 画面から `Delete branch` を押して削除することもできます。
+
+---
+
+## 他の人のブランチを使いたい場合
+
+まだリポジトリをcloneしていない場合：
+
+```bash
+git clone -b ブランチ名 リポジトリURL
+```
+
+例：
+
+```bash
+git clone -b feature-login https://github.com/tanirup/JavaDounat.git
+```
+
+すでにJavaDounatをclone済みの場合：
+
+```bash
+git fetch origin
+git switch ブランチ名
+```
+
+例：
+
+```bash
+git fetch origin
+git switch feature-login
+```
+
+---
 
 ## 注意
+
+- 他の人のブランチは勝手に削除しない
+- 削除前に必要なコードが残っていないか確認する
+- 分からない場合は `git status` と `git branch` を確認する
+  
+ーーーーーーーーー
 
 - `main`へ直接Pushしない
 - 必ず自分の作業ブランチへPushする
