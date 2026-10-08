@@ -113,6 +113,215 @@ git push -u origin feature-作業名
 ```bash
 git push
 ```
+## EclipseからGitHubへプッシュする方法
+
+ターミナルを使わず、Eclipseから直接コミット・プッシュすることもできます。
+
+### 1. 現在のブランチを確認する
+
+Eclipseの「パッケージ・エクスプローラー」でプロジェクト名を確認します。
+
+例：
+
+MainPage [JavaDounat feature-mainpage]
+
+この場合、現在は `feature-mainpage` ブランチで作業しています。
+
+mainブランチで直接作業せず、自分の作業用ブランチになっていることを確認してください。
+
+---
+
+### 2. 変更内容をコミットする
+
+パッケージ・エクスプローラーで、プロジェクト名を右クリックします。
+
+操作：
+
+チーム
+→ コミット...
+
+Gitステージング画面が表示されたら、変更したファイルを「ステージされた変更」へ移動します。
+
+コミットメッセージには、何を変更したのか分かる内容を書きます。
+
+例：
+
+MainPageを作成
+
+ログイン画面を追加
+
+注文処理を修正
+
+その後、「コミット」を押します。
+
+---
+
+### 3. Pushする前にGitHub側の変更を取り込む
+
+他のメンバーが同じブランチや関連する内容を更新している可能性があるため、Pushする前にPullを行います。
+
+プロジェクト名を右クリックして、
+
+チーム
+→ プル...
+
+を選択します。
+
+正常に取り込めた場合、
+
+結果：マージ済み
+
+などと表示されます。
+
+---
+
+### 4. GitHubへPushする
+
+Pullが完了したら、再びプロジェクト名を右クリックします。
+
+次のどちらかを選択します。
+
+チーム
+→ ブランチのプッシュ 'feature-作業名'...
+
+または
+
+チーム
+→ HEAD のプッシュ...
+
+現在作業しているブランチがGitHubへアップロードされます。
+
+---
+
+### 5. GitHubへのログインを求められた場合
+
+GitHubでは、HTTPSでPushする場合、通常のGitHubパスワードではなくPersonal Access Tokenを使用します。
+
+入力内容：
+
+User
+→ GitHubのユーザー名
+
+Password
+→ Personal Access Token
+
+例：
+
+User:
+tanirup
+
+Password:
+github_pat_xxxxxxxxxx
+
+Personal Access TokenはGitHubの
+
+Settings
+→ Developer settings
+→ Personal access tokens
+→ Fine-grained tokens
+
+から作成できます。
+
+Pushだけを行う場合、基本的には次の権限で問題ありません。
+
+Repository access
+→ JavaDounatを選択
+
+Repository permissions
+→ Contents
+→ Read and write
+
+注意：
+Personal Access Tokenはパスワードと同じ重要な情報です。
+GitHub、README、Discord、LINE、スクリーンショットなどに絶対に公開しないでください。
+
+---
+
+### 6. non-fast-forwardエラーが出た場合
+
+Pushした際に、
+
+rejected - non-fast-forward
+
+と表示される場合があります。
+
+これは、GitHub側に自分のPCへ取り込んでいない変更が存在しているという意味です。
+
+この場合は、強制Pushをせず、次の順番で操作します。
+
+プロジェクト名を右クリック
+↓
+チーム
+↓
+プル...
+↓
+GitHub側の変更を取り込む
+↓
+必要であればマージ
+↓
+もう一度Push
+
+正常にPullできると、
+
+結果：マージ済み
+
+などと表示されます。
+
+その後、
+
+チーム
+→ ブランチのプッシュ 'feature-作業名'...
+
+または
+
+チーム
+→ HEAD のプッシュ...
+
+を実行します。
+
+---
+
+## Eclipseでの基本的な作業の流れ
+
+作業用ブランチでコードを編集
+↓
+コミット
+↓
+Pull
+↓
+必要ならマージ
+↓
+Push
+↓
+GitHubでPull Requestを作成
+↓
+チームメンバー・管理者が確認
+↓
+mainへマージ
+
+---
+
+## ターミナルとEclipseの対応表
+
+| やりたいこと | ターミナル | Eclipse |
+|---|---|---|
+| 変更確認 | git status | Gitステージング |
+| コミット | git commit | チーム → コミット |
+| GitHub側の変更取得 | git pull | チーム → プル |
+| Push | git push | チーム → HEADのプッシュ |
+| ブランチ確認 | git branch | プロジェクト名横のブランチ表示 |
+| ブランチ作成 | git switch -c | チーム → 切り替え → 新規ブランチ |
+
+---
+
+## Eclipseを使う場合の注意
+
+- ファイル単体ではなく、プロジェクト名を右クリックする。
+- mainブランチへ直接Pushしない。
+- Push前にPullして最新状態を確認する。
+- `non-fast-forward` が出た場合は、強制PushせずPullする。
+- コンフリクトが出た場合は勝手に削除せず、チームメンバーへ相談する。
+- `.env`、APIキー、パスワード、Personal Access Tokenはコミットしない。
 
 ### 6. Pull Requestを作る
 
