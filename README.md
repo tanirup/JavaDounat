@@ -230,45 +230,102 @@ git push --force
 
 # 作業終了時にやること
 
-その日の作業を終える前に、変更が残っていないか確認します。
+その日の作業が終わったら、自分の作業ブランチへPushします。
+
+## 1. 現在のブランチを確認
 
 ```bash
-git status
+git branch
 ```
 
-変更があるとき：
+`*`が付いているものが現在のブランチです。
 
-```bash
-git add .
-git commit -m "本日の作業内容"
-git push
-```
-
-作業が完成している場合は、GitHubでPull Requestを作成します。
+例：
 
 ```text
-作業終了
-↓
-git status
-↓
-git add .
-↓
-git commit
-↓
-git push
-↓
-完成していればPull Request
+  main
+* feature-login
 ```
-
-`git status`で、
-
-```text
-nothing to commit, working tree clean
-```
-
-と表示されれば、未コミットの変更はありません。
 
 ---
+
+## 2. 変更内容を確認
+
+```bash
+git status
+```
+
+---
+
+## 3. 変更を追加
+
+```bash
+git add .
+```
+
+---
+
+## 4. コミット
+
+```bash
+git commit -m "作業内容"
+```
+
+例：
+
+```bash
+git commit -m "ログイン画面を作成"
+```
+
+---
+
+## 5. 自分のブランチへPush
+
+初回Push：
+
+```bash
+git push -u origin 自分のブランチ名
+```
+
+例：
+
+```bash
+git push -u origin feature-login
+```
+
+2回目以降：
+
+```bash
+git push
+```
+
+---
+
+## 6. 作業が完成した場合
+
+GitHubでPull Requestを作成します。
+
+```text
+自分のブランチ
+↓
+Push
+↓
+Pull Request
+↓
+管理者が確認
+↓
+mainへマージ
+```
+
+---
+
+## 注意
+
+- `main`へ直接Pushしない
+- 必ず自分の作業ブランチへPushする
+- 作業途中でも自分のブランチへのPushはOK
+- 完成したらPull Requestを作る
+- `git push --force`は使わない
 
 # チームルール
 
