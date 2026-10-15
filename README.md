@@ -20,7 +20,7 @@ cd JavaDounat
 ### 2. 環境変数を設定
 
 ```bash
-cp .env.example .env
+copy .env.example .env
 ```
 
 `.env` に各自のパスワードを設定してください。
