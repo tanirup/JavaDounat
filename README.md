@@ -297,6 +297,22 @@ git commit -m "ログイン画面を作成"
 
 ## 5. 自分のブランチへPush
 
+## Gitのプッシュ先を確認する
+
+### 現在の接続先を確認
+
+```bash
+git remote -v
+```
+
+### プッシュ先のリポジトリを変更
+
+```bash
+git remote set-url origin URL
+```
+
+※ `URL` には変更先のGitHubリポジトリURLを入力してください。
+
 初回Push：
 
 ```bash
