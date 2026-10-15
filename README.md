@@ -1,14 +1,87 @@
 # JavaDounat
 
-JavaDounatのチーム開発用Git / GitHubルールです。
+JavaDounat のチーム開発用 Git / GitHub ルールです。
 
 ---
 
+#　追記その１！！
+
+## MySQL セットアップ
+
+Docker を使用して MySQL 環境を構築します。
+
+### 1. ブランチを取得
+
+```bash
+git clone -b feature-Dounat_db リポジトリURL
+cd JavaDounat
+```
+
+### 2. 環境変数を設定
+
+```bash
+cp .env.example .env
+```
+
+`.env` に各自のパスワードを設定してください。
+<br><br>
+ターミナルでやること
+
+```bash
+nano .gitignore
+```
+
+```bash
+.env
+.env.*
+!.env.example
+```
+
+この３つをコピペで入れること
+
+※ `.env` は GitHub にプッシュしないでください。
+
+```bash
+git check-ignore -v .env
+```
+これで除外設定が表示されたらOK！
+
+### 3. Docker を起動
+
+Docker Desktop を起動後、以下を実行します。
+
+```bash
+docker compose up -d
+```
+
+### 4. データベースを確認
+
+```bash
+docker compose exec mysql mysql -u dounat_user -p dounat_db
+```
+
+```sql
+SHOW TABLES;
+```
+
+6 つのテーブルが表示されれば完了です。
+
+### 5. Docker の操作
+
+| 操作     | コマンド               |
+| -------- | ---------------------- |
+| 起動     | `docker compose up -d` |
+| 停止     | `docker compose stop`  |
+| 再起動   | `docker compose start` |
+| 状態確認 | `docker compose ps`    |
+
+**注意：** 初回起動時に SQL が自動実行されます。既存の DB には自動で再実行されません。
+
 # 最初にやること
 
-## 1. GitHubの招待を承認する
+## 1. GitHub の招待を承認する
 
-管理者から届いたJavaDounatリポジトリへの招待を承認してください。
+管理者から届いた JavaDounat リポジトリへの招待を承認してください。
 
 ## 2. リポジトリをクローンする
 
@@ -18,7 +91,7 @@ cd JavaDounat
 code .
 ```
 
-## 3. Gitの名前とメールを設定する
+## 3. Git の名前とメールを設定する
 
 初回だけ設定します。
 
@@ -27,9 +100,9 @@ git config --global user.name "自分のGitHubユーザー名"
 git config --global user.email "自分のメールアドレス"
 ```
 
-## 4. Personal Access Tokenを作る
+## 4. Personal Access Token を作る
 
-GitHubで、
+GitHub で、
 
 ```text
 Settings
@@ -48,13 +121,13 @@ repo
 
 にチェックしてください。
 
-Tokenは他の人と共有しないでください。
+Token は他の人と共有しないでください。
 
 ---
 
 # 作業を始めるとき
 
-まずmainを最新にします。
+まず main を最新にします。
 
 ```bash
 git switch main
@@ -108,7 +181,8 @@ git commit -m "ログイン画面を追加"
 ```
 
 ---
-## Gitのプッシュ先を確認する
+
+## Git のプッシュ先を確認する
 
 ### 現在の接続先を確認
 
@@ -122,12 +196,11 @@ git remote -v
 git remote set-url origin URL
 ```
 
-※ `URL` には変更先のGitHubリポジトリURLを入力してください。
+※ `URL` には変更先の GitHub リポジトリ URL を入力してください。
 
+# GitHub へ Push する
 
-# GitHubへPushする
-
-初回Push：
+初回 Push：
 
 ```bash
 git push -u origin feature-作業名
@@ -139,7 +212,7 @@ git push -u origin feature-作業名
 git push -u origin feature-login
 ```
 
-2回目以降：
+2 回目以降：
 
 ```bash
 git push
@@ -147,7 +220,7 @@ git push
 
 ---
 
-# GitHubのログインを求められたとき
+# GitHub のログインを求められたとき
 
 ```text
 Username
@@ -157,13 +230,13 @@ Password
 → Personal Access Token
 ```
 
-GitHubの通常のパスワードは使いません。
+GitHub の通常のパスワードは使いません。
 
 ---
 
-# Pull Requestを作る
+# Pull Request を作る
 
-PushしたらGitHubでJavaDounatを開きます。
+Push したら GitHub で JavaDounat を開きます。
 
 ```text
 Compare & pull request
@@ -193,13 +266,13 @@ Create pull request
 
 を押します。
 
-管理者が確認するまで、自分でmainへマージしないでください。
+管理者が確認するまで、自分で main へマージしないでください。
 
 ---
 
-# mainへマージされたあと
+# main へマージされたあと
 
-mainへ戻ります。
+main へ戻ります。
 
 ```bash
 git switch main
@@ -219,7 +292,7 @@ git switch -c feature-次の作業名
 
 ---
 
-# Pushできないとき
+# Push できないとき
 
 現在のブランチを確認します。
 
@@ -234,7 +307,7 @@ git pull origin feature-login
 git push
 ```
 
-分からない場合は強制Pushしないでください。
+分からない場合は強制 Push しないでください。
 
 ```bash
 git push --force
@@ -246,7 +319,7 @@ git push --force
 
 # 作業終了時にやること
 
-その日の作業が終わったら、自分の作業ブランチへPushします。
+その日の作業が終わったら、自分の作業ブランチへ Push します。
 
 ## 1. 現在のブランチを確認
 
@@ -295,9 +368,9 @@ git commit -m "ログイン画面を作成"
 
 ---
 
-## 5. 自分のブランチへPush
+## 5. 自分のブランチへ Push
 
-## Gitのプッシュ先を確認する
+## Git のプッシュ先を確認する
 
 ### 現在の接続先を確認
 
@@ -311,9 +384,9 @@ git remote -v
 git remote set-url origin URL
 ```
 
-※ `URL` には変更先のGitHubリポジトリURLを入力してください。
+※ `URL` には変更先の GitHub リポジトリ URL を入力してください。
 
-初回Push：
+初回 Push：
 
 ```bash
 git push -u origin 自分のブランチ名
@@ -325,7 +398,7 @@ git push -u origin 自分のブランチ名
 git push -u origin feature-login
 ```
 
-2回目以降：
+2 回目以降：
 
 ```bash
 git push
@@ -335,7 +408,7 @@ git push
 
 ## 6. 作業が完成した場合
 
-GitHubでPull Requestを作成します。
+GitHub で Pull Request を作成します。
 
 ```text
 自分のブランチ
@@ -350,11 +423,12 @@ mainへマージ
 ```
 
 ---
+
 # ブランチの削除・他の人のブランチを使う方法
 
 ## ブランチを削除する
 
-### 自分のPCから削除
+### 自分の PC から削除
 
 まず `main` に移動します。
 
@@ -374,7 +448,7 @@ git branch -d ブランチ名
 git branch -d feature-login
 ```
 
-### GitHub上から削除
+### GitHub 上から削除
 
 ```bash
 git push origin --delete ブランチ名
@@ -386,13 +460,13 @@ git push origin --delete ブランチ名
 git push origin --delete feature-login
 ```
 
-GitHubの `Branches` 画面から `Delete branch` を押して削除することもできます。
+GitHub の `Branches` 画面から `Delete branch` を押して削除することもできます。
 
 ---
 
 ## 他の人のブランチを使いたい場合
 
-まだリポジトリをcloneしていない場合：
+まだリポジトリを clone していない場合：
 
 ```bash
 git clone -b ブランチ名 リポジトリURL
@@ -404,7 +478,7 @@ git clone -b ブランチ名 リポジトリURL
 git clone -b feature-login https://github.com/tanirup/JavaDounat.git
 ```
 
-すでにJavaDounatをclone済みの場合：
+すでに JavaDounat を clone 済みの場合：
 
 ```bash
 git fetch origin
@@ -425,24 +499,24 @@ git switch feature-login
 - 他の人のブランチは勝手に削除しない
 - 削除前に必要なコードが残っていないか確認する
 - 分からない場合は `git status` と `git branch` を確認する
-  
+
 ーーーーーーーーー
 
-- `main`へ直接Pushしない
-- 必ず自分の作業ブランチへPushする
-- 作業途中でも自分のブランチへのPushはOK
-- 完成したらPull Requestを作る
+- `main`へ直接 Push しない
+- 必ず自分の作業ブランチへ Push する
+- 作業途中でも自分のブランチへの Push は OK
+- 完成したら Pull Request を作る
 - `git push --force`は使わない
 
 # チームルール
 
-- mainへ直接Pushしない
-- 必ずfeatureブランチを使う
-- 作業前にmainをPullする
+- main へ直接 Push しない
+- 必ず feature ブランチを使う
+- 作業前に main を Pull する
 - コミットメッセージは変更内容が分かるようにする
-- Tokenやパスワードを共有しない
-- `.env`やAPIキーをPushしない
-- 強制Pushはしない
+- Token やパスワードを共有しない
+- `.env`や API キーを Push しない
+- 強制 Push はしない
 - 分からないエラーが出たら勝手に操作しない
 
 ---
