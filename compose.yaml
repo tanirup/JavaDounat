@@ -1,0 +1,21 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: dounat-mysql
+    restart: unless-stopped
+
+    ports:
+      - "127.0.0.1:3307:3306"
+
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: dounat_db
+      MYSQL_USER: dounat_user
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/V1__init_schema.sql:/docker-entrypoint-initdb.d/V1__init_schema.sql:ro
+
+volumes:
+  mysql_data:
