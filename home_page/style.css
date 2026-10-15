@@ -1,0 +1,200 @@
+/* 全体 */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #5b4038;
+  background-color: #fffaf5;
+  line-height: 1.8;
+}
+
+/* ヘッダー */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 8%;
+  background-color: #fff;
+}
+
+.header h1 {
+  margin: 0;
+  color: #d96b87;
+  font-size: 25px;
+}
+
+nav {
+  display: flex;
+  gap: 25px;
+}
+
+nav a {
+  color: #5b4038;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+nav a:hover {
+  color: #d96b87;
+}
+
+/* メインビジュアル */
+.hero {
+  padding: 100px 20px;
+  text-align: center;
+  background-color: #fbe2e8;
+  background-image:
+    radial-gradient(#ffffff80 2px, transparent 2px);
+  background-size: 28px 28px;
+}
+
+.hero-subtitle {
+  color: #c65e7b;
+  font-weight: bold;
+  letter-spacing: 4px;
+}
+
+.hero h2 {
+  font-size: 36px;
+  margin: 15px 0;
+}
+
+.hero p {
+  margin-bottom: 30px;
+}
+
+/* ボタン */
+.button {
+  display: inline-block;
+  padding: 10px 28px;
+  background-color: #d96b87;
+  color: white;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.button:hover {
+  background-color: #b84f6c;
+  transform: translateY(-2px);
+}
+
+/* 商品一覧 */
+.menu {
+  padding: 60px 8%;
+  text-align: center;
+}
+
+.menu h2,
+.about h2 {
+  margin-bottom: 0;
+  color: #d96b87;
+  font-size: 30px;
+  letter-spacing: 3px;
+}
+
+.section-text {
+  margin-top: 5px;
+  margin-bottom: 35px;
+}
+
+.donut-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 25px;
+}
+
+.donut-card {
+  padding: 15px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 5px 18px #8c5b4a15;
+  transition: 0.3s;
+}
+
+.donut-card:hover {
+  transform: translateY(-5px);
+}
+
+.donut-card img {
+  width: 100%;
+  height: 210px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.donut-card h3 {
+  font-size: 18px;
+}
+
+.donut-card p {
+  font-size: 14px;
+}
+
+.donut-card .price {
+  color: #d96b87;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* お店について */
+.about {
+  padding: 55px 20px;
+  text-align: center;
+  background-color: #fff0df;
+}
+
+.about p {
+  max-width: 600px;
+  margin: 20px auto 0;
+}
+
+/* フッター */
+footer {
+  padding: 25px;
+  text-align: center;
+  color: white;
+  background-color: #755044;
+}
+
+footer p {
+  margin: 5px;
+  font-size: 13px;
+}
+
+/* スマートフォン対応 */
+@media (max-width: 700px) {
+  .header {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .hero {
+    padding: 65px 15px;
+  }
+
+  .hero h2 {
+    font-size: 26px;
+  }
+
+  .donut-list {
+    grid-template-columns: 1fr;
+  }
+
+  .menu {
+    padding: 40px 7%;
+  }
+}
