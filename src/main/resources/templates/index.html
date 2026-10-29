@@ -1,33 +1,82 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Spring Boot Web</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f4f8;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-        .card {
-            background: white;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        h1 { color: #6db33f; }
-        p { font-size: 1.2rem; color: #333; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DONUT CAFE｜ドーナツ通販</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-    <div class="card">
-        <h1>Hello, Spring Boot!</h1>
-        <p th:text="${message}">メッセージ表示エリア</p>
-    </div>
+
+  <header class="header">
+    <h1>DONUT CAFE 🍩</h1>
+    <nav>
+      <a href="#">ホーム</a>
+      <a href="#menu">商品一覧</a>
+      <a href="#about">お店について</a>
+      <a href="#contact">お問い合わせ</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="hero-subtitle">HAPPY EVERY DAY!</p>
+      <h2>甘いひとときを、あなたに。</h2>
+      <p>ひとつひとつ丁寧に作った、特別なドーナツ。</p>
+      <a href="#menu" class="button">ドーナツを選ぶ</a>
+    </section>
+
+    <section class="menu" id="menu">
+      <h2>OUR DONUTS</h2>
+      <p class="section-text">おすすめのドーナツ</p>
+
+      <div class="donut-list">
+        <article class="donut-card">
+          <img
+            src="https://placehold.co/400x300/FCE4EC/9B5268?text=Strawberry+Donut"
+            alt="ストロベリードーナツ">
+          <h3>ストロベリードーナツ</h3>
+          <p>甘酸っぱいいちごチョコが人気！</p>
+          <p class="price">¥320（税込）</p>
+          <a href="#contact" class="button">商品を見る</a>
+        </article>
+
+        <article class="donut-card">
+          <img
+            src="https://placehold.co/400x300/F5DFC0/795438?text=Chocolate+Donut"
+            alt="チョコレートドーナツ">
+          <h3>チョコレートドーナツ</h3>
+          <p>濃厚なチョコレートの定番商品。</p>
+          <p class="price">¥350（税込）</p>
+          <a href="#contact" class="button">商品を見る</a>
+        </article>
+
+        <article class="donut-card">
+          <img
+            src="https://placehold.co/400x300/FFF0C9/9A7435?text=Honey+Donut"
+            alt="はちみつドーナツ">
+          <h3>はちみつドーナツ</h3>
+          <p>やさしい甘さが広がる人気の一品。</p>
+          <p class="price">¥280（税込）</p>
+          <a href="#contact" class="button">商品を見る</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="about" id="about">
+      <h2>ABOUT US</h2>
+      <p>
+        素材にこだわり、毎日食べたくなるような
+        おいしいドーナツをお届けします。
+      </p>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <p>DONUT CAFE</p>
+    <p>&copy; 2026 DONUT CAFE. All Rights Reserved.</p>
+  </footer>
+
 </body>
 </html>
