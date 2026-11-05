@@ -1,0 +1,165 @@
+
+/* ログイン画面全体 */
+.login-section {
+    min-height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 70px 20px;
+    background-color: #fbe2e8;
+    background-image:
+      radial-gradient(#ffffff80 2px, transparent 2px);
+    background-size: 28px 28px;
+  }
+  
+  /* ログインカード */
+  .login-container {
+    width: 100%;
+    max-width: 440px;
+    padding: 45px 40px;
+    text-align: center;
+    background-color: #fffaf5;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px #8c5b4a20;
+  }
+  
+  /* ドーナツアイコン */
+  .login-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+  }
+  
+  /* タイトル */
+  .login-container h2 {
+    margin: 0;
+    color: #d96b87;
+    font-size: 30px;
+    letter-spacing: 4px;
+  }
+  
+  /* サブタイトル */
+  .login-subtitle {
+    margin: 10px 0 30px;
+    color: #755044;
+    font-size: 14px;
+  }
+  
+  /* 入力フォーム */
+  .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .form-group input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #e8c9cd;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #5b4038;
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: 0.3s;
+  }
+  
+  /* フォーカス時 */
+  .form-group input:focus {
+    border-color: #d96b87;
+    box-shadow: 0 0 0 3px #d96b8720;
+  }
+  
+  .form-group input::placeholder {
+    color: #b9a5a0;
+  }
+  
+  /* パスワードを忘れた場合 */
+  .forgot-password {
+    text-align: right;
+    margin-bottom: 25px;
+  }
+  
+  .forgot-password a {
+    color: #c65e7b;
+    font-size: 12px;
+    text-decoration: none;
+  }
+  
+  .forgot-password a:hover {
+    text-decoration: underline;
+  }
+  
+  /* ログインボタン */
+  .login-button {
+    width: 100%;
+    padding: 13px;
+    border: none;
+    border-radius: 30px;
+    background-color: #d96b87;
+    color: white;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .login-button:hover {
+    background-color: #b84f6c;
+    transform: translateY(-2px);
+  }
+  
+  /* 新規登録 */
+  .register-text {
+    margin-top: 30px;
+    font-size: 13px;
+  }
+  
+  .register-text a {
+    display: inline-block;
+    margin-left: 5px;
+    color: #d96b87;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  .register-text a:hover {
+    text-decoration: underline;
+  }
+  
+  .error-message {
+    color: #d94f65;
+    font-size: 13px;
+    background-color: #fff0f3;
+    padding: 10px;
+    border-radius: 8px;
+  }
+  
+  /* スマートフォン対応 */
+  @media (max-width: 700px) {
+    .login-section {
+      padding: 45px 15px;
+    }
+  
+    .login-container {
+      padding: 35px 25px;
+    }
+  
+    .login-container h2 {
+      font-size: 26px;
+    }
+  }
+  .success-message {
+    color: #287a43;
+    font-size: 13px;
+    background-color: #e5f6e8;
+    padding: 10px;
+    border-radius: 8px;
+}
