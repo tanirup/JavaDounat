@@ -99,6 +99,57 @@ git commit -m "変更内容を書く"
 ```bash
 git commit -m "ログイン画面を追加"
 ```
+### ⭐️追加重要⭐️ GitHubのプッシュ先を設定する
+
+クローンしたプロジェクトのプッシュ先が、チームのGitHubリポジトリになっているか確認します。
+
+**プッシュ先の確認**
+
+```bash
+git remote -v
+```
+
+以下のように表示されれば、正しく設定されています。
+
+```text
+origin  https://github.com/tanirup/JavaDounat.git (fetch)
+origin  https://github.com/tanirup/JavaDounat.git (push)
+```
+
+**プッシュ先が違う場合**
+
+すでに `origin` が登録されている場合は、以下のコマンドで変更します。
+
+```bash
+git remote set-url origin https://github.com/tanirup/JavaDounat.git
+```
+
+まだ `origin` が登録されていない場合は、以下のコマンドで追加します。
+
+```bash
+git remote add origin https://github.com/tanirup/JavaDounat.git
+```
+
+設定後、もう一度確認します。
+
+```bash
+git remote -v
+```
+
+**注意事項**
+
+- `git clone` で正しいリポジトリを取得した場合、通常はプッシュ先が自動的に設定されます。
+- プッシュ先を変更しても、現在のブランチやコミット履歴は変更されません。
+- 別のリポジトリから取得したプロジェクトの場合は、コミット履歴が異なる可能性があります。その場合は、チームのリポジトリを新しくクローンして作業することを推奨します。
+- `main` には直接プッシュせず、必ず作業用ブランチからPull Requestを作成してください。
+
+**作業ブランチのプッシュ例**
+
+```bash
+git push -u origin feature-login
+```
+
+プッシュが完了したら、GitHubでPull Requestを作成し、管理者に確認してもらいます。
 
 ### 5. GitHubへプッシュする
 
