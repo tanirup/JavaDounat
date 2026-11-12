@@ -1,79 +1,152 @@
-
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DONUT CAFE｜ドーナツ通販</title>
+  <title>DONUT CAFE</title>
   <link rel="stylesheet" th:href="@{/style.css}">
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #faf6f0;
+      color: #5b4038;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header {
+      background-color: #ffffff;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 15px rgba(91, 64, 56, 0.06);
+    }
+    .header h1 {
+      margin: 0;
+      color: #d96b87;
+      font-size: 26px;
+      letter-spacing: 1px;
+    }
+    .header nav a {
+      text-decoration: none;
+      color: #755044;
+      margin-left: 25px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+    .header nav a:hover {
+      color: #d96b87;
+    }
+
+    .button {
+      background-color: #d96b87 !important;
+      color: white !important;
+      padding: 12px 28px;
+      border-radius: 30px;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: bold;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(217, 107, 135, 0.25);
+      transition: none !important;
+    }
+    .button:hover {
+      background-color: #d96b87 !important;
+    }
+
+    .hero {
+      background: linear-gradient(rgba(91, 64, 56, 0.35), rgba(91, 64, 56, 0.35)), url('https://placehold.co/1200x550/E8D5C8/5B4038?text=Fresh+Handmade+Donuts') center/cover no-repeat;
+      text-align: center;
+      padding: 120px 20px;
+      color: white;
+    }
+    .hero h2 {
+      font-size: 40px;
+      margin-bottom: 15px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .hero p {
+      font-size: 17px;
+      margin-bottom: 35px;
+      text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+      font-weight: 300;
+    }
+
+    .home-container {
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+    .home-card {
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 6px 20px rgba(91, 64, 56, 0.05);
+      text-align: center;
+    }
+    .home-card h2 {
+      color: #d96b87;
+      font-size: 26px;
+      margin-top: 0;
+      margin-bottom: 15px;
+    }
+    .home-card p {
+      color: #8c7365;
+      font-size: 15px;
+      line-height: 1.8;
+      margin: 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #8c7365;
+      font-size: 13px;
+      margin-top: 60px;
+      background-color: #f0e9e1;
+    }
+  </style>
 </head>
 <body>
 
   <header class="header">
     <h1>DONUT CAFE 🍩</h1>
     <nav>
-      <a href="#">ホーム</a>
-      <a href="#menu">商品一覧</a>
-      <a href="#about">お店について</a>
-      <a href="#contact">お問い合わせ</a>
+      <a th:href="@{/}">ホーム</a>
+      <a th:href="@{/items}">商品一覧</a>
+      <a th:href="@{/cart}">カート</a>
+      <a th:href="@{/#about}">お店について</a>
+      <a th:href="@{/#contact}">お問い合わせ</a>
     </nav>
   </header>
 
   <main>
     <section class="hero">
-      <p class="hero-subtitle">HAPPY EVERY DAY!</p>
-      <h2>甘いひとときを、あなたに。</h2>
-      <p>ひとつひとつ丁寧に作った、特別なドーナツ。</p>
-      <a href="#menu" class="button">ドーナツを選ぶ</a>
+      <h2>手作りドーナツの専門店</h2>
+      <p>サクッとふんわり、素材にこだわった優しい甘さをお届けします。</p>
+      <a th:href="@{/items}" class="button">商品を見る</a>
     </section>
 
-    <section class="menu" id="menu">
-      <h2>OUR DONUTS</h2>
-      <p class="section-text">おすすめのドーナツ</p>
+    <div class="home-container">
+      <section id="about" class="home-card">
+        <h2>DONUT CAFEについて</h2>
+        <p>当店では、毎朝ひとつひとつ丁寧にドーナツを手作りしています。北海道産の小麦と厳選したバターを使用し、口に入れた瞬間に広がる優しい風味と、軽やかな食感が自慢です。特別な日のおやつにも、普段のティータイムにもぴったりなドーナツをぜひお楽しみください。</p>
+      </section>
 
-      <div class="donut-list">
-        <article class="donut-card">
-          <img
-            src="https://placehold.co/400x300/FCE4EC/9B5268?text=Strawberry+Donut"
-            alt="ストロベリードーナツ">
-          <h3>ストロベリードーナツ</h3>
-          <p>甘酸っぱいいちごチョコが人気！</p>
-          <p class="price">¥320（税込）</p>
-          <a href="#contact" class="button">商品を見る</a>
-        </article>
-
-        <article class="donut-card">
-          <img
-            src="https://placehold.co/400x300/F5DFC0/795438?text=Chocolate+Donut"
-            alt="チョコレートドーナツ">
-          <h3>チョコレートドーナツ</h3>
-          <p>濃厚なチョコレートの定番商品。</p>
-          <p class="price">¥350（税込）</p>
-          <a href="#contact" class="button">商品を見る</a>
-        </article>
-
-        <article class="donut-card">
-          <img
-            src="https://placehold.co/400x300/FFF0C9/9A7435?text=Honey+Donut"
-            alt="はちみつドーナツ">
-          <h3>はちみつドーナツ</h3>
-          <p>やさしい甘さが広がる人気の一品。</p>
-          <p class="price">¥280（税込）</p>
-          <a href="#contact" class="button">商品を見る</a>
-        </article>
-      </div>
-    </section>
-
-    <section class="about" id="about">
-      <h2>ABOUT US</h2>
-      <p>
-        素材にこだわり、毎日食べたくなるような
-        おいしいドーナツをお届けします。
-      </p>
-    </section>
+      <section id="contact" class="home-card">
+        <h2>お問い合わせ</h2>
+        <p>ご質問やご予約などについては、お気軽にお電話またはメールにてお問い合わせください。<br><strong>TEL: 03-XXXX-XXXX</strong>（受付時間 10:00〜18:00）</p>
+      </section>
+    </div>
   </main>
 
-  <footer id="contact">
+  <footer>
     <p>DONUT CAFE</p>
     <p>&copy; 2026 DONUT CAFE. All Rights Reserved.</p>
   </footer>
