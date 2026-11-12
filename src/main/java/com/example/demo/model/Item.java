@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -17,4 +17,10 @@ public class Item {
     private Integer stockQuantity;
     private Integer isRecommended;
     private String imageUrl;
+
+    // --- 以下を手動で追加 ---
+    public Long getId() { return id; }
+    public String getName() { return name; }
+    public Integer getPrice() { return price; }
+    public String getImageUrl() { return imageUrl; }
 }

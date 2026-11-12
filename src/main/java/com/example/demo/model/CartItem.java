@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.model;
 
 public class CartItem {
     private Long itemId;
@@ -22,7 +22,6 @@ public class CartItem {
     public int getQuantity() { return quantity; }
     public void setQuantity(int quantity) { this.quantity = quantity; }
     
-    // 小計（価格 × 数量）
     public int getSubtotal() {
         return price * quantity;
     }

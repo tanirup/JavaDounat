@@ -1,5 +1,8 @@
-package com.example.demo;
+package com.example.demo.controller;
 
+import com.example.demo.model.CartItem;
+import com.example.demo.model.Item;
+import com.example.demo.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +32,6 @@ public class HelloController {
         return "items"; 
     }
 
-    // カート画面を表示
     @GetMapping("/cart")
     public String viewCart(HttpSession session, Model model) {
         @SuppressWarnings("unchecked")
@@ -39,14 +41,12 @@ public class HelloController {
         }
         model.addAttribute("cartItems", cart);
 
-        // 合計金額を計算
         int totalPrice = cart.stream().mapToInt(CartItem::getSubtotal).sum();
         model.addAttribute("totalPrice", totalPrice);
 
         return "cart"; 
     }
 
-    // カートに商品を追加
     @PostMapping("/cart/add")
     public String addToCart(@RequestParam Long itemId, @RequestParam int quantity, HttpSession session) {
         @SuppressWarnings("unchecked")
@@ -74,7 +74,6 @@ public class HelloController {
         return "redirect:/cart";
     }
 
-    // 【新規追加】カート内の商品数量を変更
     @PostMapping("/cart/update")
     public String updateCart(@RequestParam Long itemId, @RequestParam int quantity, HttpSession session) {
         @SuppressWarnings("unchecked")
@@ -93,7 +92,6 @@ public class HelloController {
         return "redirect:/cart";
     }
 
-    // 【新規追加】カートから商品を削除
     @PostMapping("/cart/remove")
     public String removeFromCart(@RequestParam Long itemId, HttpSession session) {
         @SuppressWarnings("unchecked")

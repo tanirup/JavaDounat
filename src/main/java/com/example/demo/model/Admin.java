@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.example.demo.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,4 +16,7 @@ public class Admin {
 
     @Column(nullable = false)
     private String password;
+
+    // --- 以下を手動で追加 ---
+    public String getPassword() { return password; }
 }

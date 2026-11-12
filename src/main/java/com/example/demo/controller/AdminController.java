@@ -1,5 +1,9 @@
-package com.example.demo;
+package com.example.demo.controller;
 
+import com.example.demo.model.Admin;
+import com.example.demo.repository.AdminRepository;
+import com.example.demo.model.Item;
+import com.example.demo.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,14 +22,13 @@ public class AdminController {
     private ItemRepository itemRepository;
 
     @Autowired
-    private AdminRepository adminRepository; // 追加
+    private AdminRepository adminRepository;
 
     @GetMapping("/admin/login")
     public String adminLogin() {
         return "admin/login";
     }
 
-    // データベースと照合するログイン処理
     @PostMapping("/admin/login")
     public String adminAuthenticate(@RequestParam String username, 
                                     @RequestParam String password, 
@@ -33,7 +36,6 @@ public class AdminController {
                                     Model model) {
         Optional<Admin> adminOpt = adminRepository.findByUsername(username);
         
-        // ユーザーが存在し、かつパスワードが一致するかどうか
         if (adminOpt.isPresent() && adminOpt.get().getPassword().equals(password)) {
             session.setAttribute("adminLoggedIn", true);
             return "redirect:/admin/dashboard";
