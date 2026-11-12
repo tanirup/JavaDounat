@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>商品一覧｜DONUT CAFE</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+  <style>
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      background-color: #faf6f0;
+      color: #5b4038;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* --- ヘッダー --- */
+    .header {
+      background-color: #ffffff;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 15px rgba(91, 64, 56, 0.06);
+    }
+    .header h1 {
+      margin: 0;
+      color: #d96b87;
+      font-size: 26px;
+      letter-spacing: 1px;
+    }
+    .header nav a {
+      text-decoration: none;
+      color: #755044;
+      margin-left: 25px;
+      font-weight: bold;
+      font-size: 15px;
+    }
+    .header nav a:hover {
+      color: #d96b87;
+    }
+
+    /* --- 共通ボタン（ホバー変化なし） --- */
+    .button {
+      background-color: #d96b87 !important;
+      color: white !important;
+      padding: 12px 24px;
+      border-radius: 30px;
+      text-decoration: none;
+      display: inline-block;
+      font-weight: bold;
+      font-size: 14px;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(217, 107, 135, 0.25);
+      transition: none !important;
+    }
+    .button:hover {
+      background-color: #d96b87 !important;
+      transform: none !important;
+    }
+
+    /* --- 商品一覧（カード） --- */
+    .menu {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
+      text-align: center;
+    }
+    .menu h2 {
+      color: #d96b87;
+      font-size: 30px;
+      margin-bottom: 8px;
+    }
+    .section-text {
+      color: #8c7365;
+      margin-bottom: 40px;
+      font-size: 15px;
+    }
+    .donut-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+    }
+    .donut-card {
+      background: white;
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 6px 20px rgba(91, 64, 56, 0.05);
+      text-align: left;
+      transform: none !important;
+      transition: none !important;
+    }
+    .donut-card:hover {
+      transform: none !important;
+    }
+    .donut-card img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 14px;
+      margin-bottom: 18px;
+    }
+    .donut-card h3 {
+      color: #5b4038;
+      font-size: 19px;
+      margin: 0 0 8px 0;
+    }
+    .donut-card p {
+      color: #8c7365;
+      font-size: 13px;
+      margin-bottom: 18px;
+      line-height: 1.5;
+    }
+    .donut-card .price {
+      color: #d96b87;
+      font-size: 19px;
+      font-weight: bold;
+      margin-bottom: 18px;
+    }
+
+    /* --- モーダル（ポップアップ詳細） --- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(91, 64, 56, 0.45);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+    }
+    .modal-card {
+      background-color: #ffffff;
+      padding: 35px;
+      border-radius: 24px;
+      box-shadow: 0 15px 35px rgba(91, 64, 56, 0.2);
+      max-width: 420px;
+      width: 90%;
+      text-align: center;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .modal-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 16px;
+      margin-bottom: 18px;
+    }
+    .modal-card h3 { 
+      color: #5b4038; 
+      font-size: 22px; 
+      margin: 0 0 10px 0; 
+    }
+    .modal-card .description { 
+      color: #8c7365; 
+      margin-bottom: 18px; 
+      font-size: 14px; 
+      line-height: 1.5;
+    }
+    .modal-card .price { 
+      color: #d96b87; 
+      font-size: 22px; 
+      font-weight: bold; 
+      margin-bottom: 20px; 
+    }
+
+    /* 数量調整ボタン */
+    .quantity-controller {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+    .qty-btn {
+      width: 38px; 
+      height: 38px;
+      background-color: #f5f0eb;
+      border: 1px solid #e0d4c8;
+      color: #755044;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: none !important;
+    }
+    .qty-btn:hover {
+      background-color: #f5f0eb !important;
+    }
+    .qty-input {
+      width: 55px; 
+      text-align: center;
+      font-size: 16px; 
+      font-weight: bold;
+      color: #5b4038;
+      border: 1px solid #d9bfa9; 
+      border-radius: 8px;
+      padding: 6px;
+      background-color: #faf6f0;
+    }
+    .close-button {
+      background-color: #a68a7d !important; 
+      color: white !important;
+      padding: 10px 24px !important; 
+      border-radius: 20px !important;
+      border: none !important; 
+      cursor: pointer !important; 
+      margin-top: 10px !important;
+      font-size: 13px;
+      transition: none !important;
+    }
+    .close-button:hover {
+      background-color: #a68a7d !important;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #8c7365;
+      font-size: 13px;
+      margin-top: 60px;
+      background-color: #f0e9e1;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <h1>DONUT CAFE 🍩</h1>
+    <nav>
+      <a th:href="@{/}">ホーム</a>
+      <a th:href="@{/items}">商品一覧</a>
+      <a th:href="@{/cart}">カート</a>
+      <a th:href="@{/#about}">お店について</a>
+      <a th:href="@{/#contact}">お問い合わせ</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="menu" style="padding-top: 40px;">
+      <h2>OUR DONUTS</h2>
+      <p class="section-text">すべてのドーナツ一覧</p>
+
+      <div class="donut-list">
+        <article class="donut-card" th:each="item : ${items}">
+          <img th:src="${item.imageUrl}" alt="ドーナツ画像">
+          <h3 th:text="${item.name}">商品名</h3>
+          <p th:text="${item.description}">商品説明</p>
+          <p class="price">¥<span th:text="${item.price}">320</span>（税込）</p>
+          
+          <button type="button" class="button" 
+                  th:data-id="${item.id}"
+                  th:data-name="${item.name}"
+                  th:data-desc="${item.description}"
+                  th:data-price="${item.price}"
+                  th:data-img="${item.imageUrl}"
+                  onclick="openModal(this)">商品を見る</button>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- モーダル詳細カード -->
+  <div id="itemModal" class="modal-overlay" onclick="closeModalOnBackground(event)">
+    <div class="modal-card">
+      <form th:action="@{/cart/add}" method="post">
+        <input type="hidden" name="itemId" id="modalItemId">
+
+        <img id="modalImg" src="" alt="商品画像">
+        <h3 id="modalName">商品名</h3>
+        <p id="modalDesc" class="description">商品説明</p>
+        <p class="price">¥<span id="modalPrice">0</span>（税込）</p>
+
+        <!-- 数量増減ボタンエリア -->
+        <div class="quantity-controller">
+          <button type="button" class="qty-btn" onclick="decreaseQty()">-</button>
+          <input type="number" name="quantity" id="quantityInput" class="qty-input" value="1" min="1" max="10" readonly>
+          <button type="button" class="qty-btn" onclick="increaseQty()">+</button>
+        </div>
+
+        <button type="submit" class="button" style="width: 100%; margin-bottom: 8px;">カートに追加する</button>
+      </form>
+      
+      <button type="button" class="close-button" onclick="closeModal()">閉じる</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>DONUT CAFE</p>
+    <p>&copy; 2026 DONUT CAFE. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function openModal(button) {
+      document.getElementById('modalItemId').value = button.getAttribute('data-id');
+      document.getElementById('modalName').innerText = button.getAttribute('data-name');
+      document.getElementById('modalDesc').innerText = button.getAttribute('data-desc');
+      document.getElementById('modalPrice').innerText = button.getAttribute('data-price');
+      document.getElementById('modalImg').src = button.getAttribute('data-img');
+      document.getElementById('quantityInput').value = 1;
+
+      document.getElementById('itemModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('itemModal').style.display = 'none';
+    }
+
+    function closeModalOnBackground(event) {
+      if (event.target.id === 'itemModal') {
+        closeModal();
+      }
+    }
+
+    function increaseQty() {
+      const input = document.getElementById('quantityInput');
+      let val = parseInt(input.value);
+      if (val < 100) { input.value = val + 1; }
+    }
+
+    function decreaseQty() {
+      const input = document.getElementById('quantityInput');
+      let val = parseInt(input.value);
+      if (val > 1) { input.value = val - 1; }
+    }
+  </script>
+
+</body>
+</html>

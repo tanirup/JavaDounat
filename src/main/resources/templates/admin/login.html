@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理画面ログイン｜DONUT CAFE</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+  <style>
+    .login-container {
+      max-width: 400px;
+      margin: 80px auto;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 6px 20px rgba(91, 64, 56, 0.05);
+      text-align: center;
+    }
+    .login-container h2 {
+      color: #d96b87;
+      margin-bottom: 25px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      color: #8c7365;
+      margin-bottom: 6px;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #d9bfa9;
+      border-radius: 8px;
+      box-sizing: border-box;
+      background-color: #faf6f0;
+    }
+    .error-msg {
+      color: #d96b87;
+      font-size: 13px;
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <h1>DONUT CAFE 🍩 <span style="font-size: 14px; color: #8c7365;">管理者用</span></h1>
+  </header>
+
+  <main>
+    <div class="login-container">
+      <h2>管理者ログイン</h2>
+      
+      <div th:if="${error}" class="error-msg" th:text="${error}"></div>
+
+      <form th:action="@{/admin/login}" method="post">
+        <div class="form-group">
+          <label for="username">ユーザー名</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+        <div class="form-group">
+          <label for="password">パスワード</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit" class="button" style="width: 100%; margin-top: 10px;">ログイン</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>DONUT CAFE</p>
+  </footer>
+
+</body>
+</html>

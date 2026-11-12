@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ショッピングカート｜DONUT CAFE</title>
+  <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+  <header class="header">
+    <h1>DONUT CAFE 🍩</h1>
+    <nav>
+      <a th:href="@{/}">ホーム</a>
+      <a th:href="@{/items}">商品一覧</a>
+      <a th:href="@{/cart}">カート</a>
+      <a th:href="@{/#about}">お店について</a>
+      <a th:href="@{/#contact}">お問い合わせ</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="cart-container">
+      <h2>ショッピングカート</h2>
+      
+      <div class="cart-empty" th:if="${cartItems == null || cartItems.isEmpty()}">
+        <p>カートに商品は入っていません。</p>
+        <div style="margin-top: 25px;">
+          <a th:href="@{/items}" class="button">商品一覧を見る</a>
+        </div>
+      </div>
+
+      <div th:if="${cartItems != null && !cartItems.isEmpty()}">
+        <div class="cart-item" th:each="item : ${cartItems}">
+          <img th:src="${item.imageUrl}" alt="商品画像">
+          
+          <div class="cart-item-info">
+            <h4 th:text="${item.name}">商品名</h4>
+            <p>単価: ¥<span th:text="${item.price}">0</span></p>
+            
+            <!-- 数量変更フォーム -->
+            <form th:action="@{/cart/update}" method="post" style="display: flex; align-items: center; gap: 8px; margin-top: 10px;">
+              <input type="hidden" name="itemId" th:value="${item.itemId}">
+              <label for="quantity" style="font-size: 13px; color: #8c7365;">数量:</label>
+              <input type="number" name="quantity" th:value="${item.quantity}" min="1" max="10" class="qty-input" style="width: 50px; padding: 4px;">
+              <button type="submit" class="button" style="padding: 6px 12px; font-size: 12px;">変更</button>
+            </form>
+          </div>
+
+          <div style="text-align: right; margin-left: 15px;">
+            <div class="cart-item-subtotal" style="margin-bottom: 10px;">
+              ¥<span th:text="${item.subtotal}">0</span>
+            </div>
+            
+            <!-- 削除フォーム -->
+            <form th:action="@{/cart/remove}" method="post">
+              <input type="hidden" name="itemId" th:value="${item.itemId}">
+              <button type="submit" style="background: none; border: none; color: #a68a7d; cursor: pointer; font-size: 13px; text-decoration: underline;">削除</button>
+            </form>
+          </div>
+        </div>
+
+        <div class="cart-total">
+          合計金額: <span>¥<span th:text="${totalPrice}">0</span></span>（税込）
+        </div>
+
+        <div class="button-group">
+          <a th:href="@{/items}" class="button">買い物を続ける</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>DONUT CAFE</p>
+    <p>&copy; 2026 DONUT CAFE. All Rights Reserved.</p>
+  </footer>
+
+</body>
+</html>
