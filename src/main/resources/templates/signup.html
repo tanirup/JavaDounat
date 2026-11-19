@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>新規会員登録 | DONUT CAFE</title>
+  <link rel="stylesheet" th:href="@{/style.css}" href="/style.css">
+  <link rel="stylesheet" th:href="@{/login.css}" href="/login.css">
+</head>
+
+<body class="login-page">
+
+  <header class="header">
+    <h1>DONUT CAFE 🍩</h1>
+    <nav>
+      <a th:href="@{/}" href="/">ホーム</a>
+      <a th:href="@{/items}" href="/items">商品一覧</a>
+      <a th:href="@{/cart}" href="/cart">カート</a>
+      <a th:href="@{/#about}" href="/#about">お店について</a>
+      <a th:href="@{/#contact}" href="/#contact">お問い合わせ</a>
+    </nav>
+  </header>
+  
+  <main class="home-container login-section">
+    <section class="home-card login-container" aria-labelledby="signup-title">
+    <h2 id="signup-title">新規会員登録</h2>
+
+    <!-- エラーメッセージ表示 -->
+    <p th:if="${errorMessage}" th:text="${errorMessage}" class="error-message" role="alert"></p>
+
+    <form th:action="@{/register}" action="/register" method="post" onsubmit="return checkPassword()">
+      <div class="form-group">
+        <label for="name">ユーザー名</label>
+        <input type="text" id="name" name="name" autocomplete="name" placeholder="ユーザー名" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">メールアドレス</label>
+        <input type="email" id="email" name="email" autocomplete="email" placeholder="example@mail.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password">パスワード</label>
+        <input type="password" id="password" name="password" autocomplete="new-password" placeholder="パスワード" required>
+      </div>
+
+      <div class="form-group">
+        <label for="password-confirm">パスワード（確認用）</label>
+        <input type="password" id="password-confirm" name="passwordConfirm" autocomplete="new-password" placeholder="パスワード確認" required>
+      </div>
+
+      <button type="submit" class="button login-button">登録</button>
+    </form>
+
+    <p class="register-text">
+      アカウントをお持ちの方
+      <a th:href="@{/login}" href="/login">ログイン</a>
+    </p>
+    <p class="register-text">
+      <a th:href="@{/}" href="/">ホーム画面に戻る</a>
+    </p>
+    </section>
+  </main>
+
+  <footer id="contact">
+    <p>DONUT CAFE</p>
+    <p>&copy; 2026 DONUT CAFE. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    function checkPassword() {
+      const pw = document.getElementById('password').value;
+      const pwConfirm = document.getElementById('password-confirm').value;
+      if (pw !== pwConfirm) {
+        alert('パスワードが一致しません。');
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>

@@ -22,6 +22,16 @@ public class HelloController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping({"/register", "/signup"})
+    public String signup() {
+        return "signup";
+    }
+
     @GetMapping("/items")
     public String itemList(Model model) {
         List<Item> items = itemRepository.findAll();

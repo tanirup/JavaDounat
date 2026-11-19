@@ -221,14 +221,6 @@
       background-color: #a68a7d !important;
     }
 
-    footer {
-      text-align: center;
-      padding: 30px;
-      color: #8c7365;
-      font-size: 13px;
-      margin-top: 60px;
-      background-color: #f0e9e1;
-    }
   </style>
 </head>
 <body>
@@ -251,7 +243,7 @@
 
       <div class="donut-list">
         <article class="donut-card" th:each="item : ${items}">
-          <img th:src="${item.imageUrl}" alt="ドーナツ画像">
+          <img th:src="@{${item.imageUrl}}" th:alt="${item.name}" alt="ドーナツ画像">
           <h3 th:text="${item.name}">商品名</h3>
           <p th:text="${item.description}">商品説明</p>
           <p class="price">¥<span th:text="${item.price}">320</span>（税込）</p>
@@ -261,7 +253,7 @@
                   th:data-name="${item.name}"
                   th:data-desc="${item.description}"
                   th:data-price="${item.price}"
-                  th:data-img="${item.imageUrl}"
+                  th:data-img="@{${item.imageUrl}}"
                   onclick="openModal(this)">商品を見る</button>
         </article>
       </div>

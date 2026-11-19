@@ -1,0 +1,135 @@
+/* 背景・ヘッダー・カード・ボタンは style.css の共通クラスを使用 */
+.login-section {
+    width: 100%;
+    max-width: 520px;
+    box-sizing: border-box;
+}
+
+.login-container {
+    min-width: 0;
+}
+
+.login-icon {
+    font-size: 45px;
+    margin-bottom: 10px;
+}
+
+.login-container .login-subtitle {
+    margin: 0 0 30px;
+}
+
+/* 入力フォーム */
+.login-container .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.login-container .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.login-container .form-group input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #d9bfa9;
+    border-radius: 8px;
+    background-color: #faf6f0;
+    color: #5b4038;
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.login-container .form-group input:focus {
+    outline: 2px solid #d96b87;
+    outline-offset: 2px;
+}
+
+.login-container .form-group input::placeholder {
+    color: #8c7365;
+}
+
+.login-container .forgot-password {
+    text-align: right;
+    margin-bottom: 25px;
+}
+
+.login-container .forgot-password a {
+    color: #755044;
+    font-size: 13px;
+    text-decoration: none;
+}
+
+.login-container .login-button {
+    box-sizing: border-box;
+    width: 100%;
+    font-family: inherit;
+}
+
+.login-container .register-text {
+    margin-top: 25px;
+    font-size: 13px;
+}
+
+.login-container .register-text a {
+    display: inline-block;
+    margin-left: 5px;
+    color: #d96b87;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-container .forgot-password a:hover,
+.login-container .register-text a:hover {
+    text-decoration: underline;
+}
+
+.login-container .error-message,
+.login-container .success-message {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 13px;
+}
+
+.login-container .error-message {
+    color: #d94f65;
+    background-color: #fff0f3;
+}
+
+.login-container .success-message {
+    color: #287a43;
+    background-color: #e5f6e8;
+}
+
+/* 狭い画面ではヘッダーを折り返し、フォームの余白を調整 */
+@media (max-width: 700px) {
+    .login-page .header {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .login-page .header nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px 20px;
+    }
+
+    .login-page .header nav a {
+        margin-left: 0;
+    }
+
+    .login-section {
+        margin: 40px auto;
+        padding: 0 15px;
+    }
+
+    .login-container {
+        padding: 30px 20px;
+    }
+}
