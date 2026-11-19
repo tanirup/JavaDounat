@@ -1,0 +1,7 @@
+2026-11-19 16:01:23.257569+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: テーブル "ORDER_HISTORY" が見つかりません
+Table "ORDER_HISTORY" not found; SQL statement:
+select count(*) from order_history ohe1_0 [42102-224]
+2026-11-19 16:17:19.468550+09:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: オブジェクトはすでに閉じられています
+The object is already closed [90007-224]

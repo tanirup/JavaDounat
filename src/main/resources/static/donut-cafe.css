@@ -217,3 +217,228 @@ th {
     margin-left: 6px;
     font-size: 14px;
 }
+/* 在庫アラート＆発注フォーム */
+.alert-banner {
+    background-color: #fff0f2;
+    border: 2px solid #e5536b;
+    color: #9e1b32;
+    border-radius: 12px;
+    padding: 14px 18px;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+.notice-success {
+    background-color: #e8f7ee;
+    border: 1px solid #8fd1ab;
+    color: #19693c;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.notice-error {
+    background-color: #fdecec;
+    border: 1px solid #f2a6a6;
+    color: #a61b1b;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.row-low-stock {
+    background-color: #fff8f9;
+}
+
+.badge-danger {
+    display: inline-block;
+    background-color: #ffe0e6;
+    color: #c21d3a;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 10px;
+    border-radius: 999px;
+}
+
+.badge-ok {
+    display: inline-block;
+    background-color: #eaf6ee;
+    color: #1f7844;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 3px 10px;
+    border-radius: 999px;
+}
+
+.inline-order-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.qty-input {
+    width: 76px;
+    padding: 7px 8px;
+    border: 1px solid #d8c2ad;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.btn-order {
+    padding: 8px 14px;
+    background-color: #e26d88;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.btn-order:hover {
+    background-color: #c94b68;
+}
+.history-board {
+    margin-bottom: 20px;
+}
+
+.empty-msg {
+    margin: 8px 0 0;
+    color: #6f4e37;
+    font-size: 14px;
+}
+.history-link-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: #fffaf5;
+    border: 1px solid #e6cdb5;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 20px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.history-link-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(92, 58, 33, 0.08);
+}
+
+.history-card-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: #5c3a21;
+    margin-bottom: 6px;
+}
+
+.history-card-desc {
+    font-size: 14px;
+    color: #6f4e37;
+}
+
+.history-board {
+    margin-bottom: 20px;
+}
+
+.empty-msg {
+    margin: 8px 0 0;
+    color: #6f4e37;
+    font-size: 14px;
+}
+.dashboard-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 16px 0 24px;
+}
+
+.nav-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    background: #fffaf5;
+    border: 1px solid #e6cdb5;
+    border-radius: 12px;
+    padding: 18px 20px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.nav-card:hover {
+    transform: translateY(-2px);
+    border-color: #c89b72;
+    box-shadow: 0 4px 12px rgba(92, 58, 33, 0.08);
+}
+
+.nav-card-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #5c3a21;
+    margin-bottom: 6px;
+}
+
+.nav-card-desc {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #6f4e37;
+}
+
+.history-board {
+    margin-bottom: 20px;
+}
+
+.empty-msg {
+    margin: 8px 0 0;
+    color: #6f4e37;
+    font-size: 14px;
+}
+.history-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin: 14px 0 18px;
+}
+
+.toolbar-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 9px 16px;
+    border-radius: 999px;
+    transition: transform 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+}
+
+.toolbar-btn:hover {
+    transform: translateY(-1px);
+    opacity: 0.94;
+}
+
+.toolbar-btn-primary {
+    background-color: #3b2314;
+    color: #fffaf5;
+}
+
+.toolbar-btn-secondary {
+    background-color: #fffaf5;
+    color: #3b2314;
+    border: 1px solid #d9b89c;
+}
+
+.history-board {
+    margin-bottom: 20px;
+    border-radius: 14px;
+}
+
+.empty-msg {
+    margin: 10px 0 2px;
+    color: #6f4e37;
+    font-size: 14px;
+}

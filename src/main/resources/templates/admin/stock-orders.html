@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>発注履歴 - DONUT CAFE</title>
+    <link rel="stylesheet" th:href="@{/donut-cafe.css}">
+</head>
+<body>
+    <div class="wrap">
+        <div class="top-title">
+            <span>DONUT CAFE ADMIN</span>
+            <h1>発注履歴一覧</h1>
+        </div>
+
+        <div class="history-toolbar">
+            <a th:href="@{/admin/dashboard}" class="toolbar-btn toolbar-btn-secondary">← ダッシュボードへ戻る</a>
+            <a th:href="@{/admin/orders}" class="toolbar-btn toolbar-btn-primary">注文履歴を見る →</a>
+        </div>
+
+        <div class="box history-board">
+            <h2 class="items-heading">発注履歴</h2>
+            <p class="empty-msg" th:if="${#lists.isEmpty(stockOrderHistory)}">まだ発注履歴はありません。</p>
+            <table th:if="${!#lists.isEmpty(stockOrderHistory)}">
+                <thead>
+                    <tr>
+                        <th>日時</th>
+                        <th>商品名</th>
+                        <th class="right">発注数</th>
+                        <th class="right">発注後在庫</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="entry : ${stockOrderHistory}">
+                        <td th:text="${entry.orderedAt}">2026/11/19 16:00</td>
+                        <td th:text="${entry.itemName}">ドーナツ</td>
+                        <td class="right"><strong th:text="'+' + ${entry.orderQuantity} + ' 個'">+20 個</strong></td>
+                        <td class="right" th:text="${entry.stockAfterOrder} + ' 個'">30 個</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

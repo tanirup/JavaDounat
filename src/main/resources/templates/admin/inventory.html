@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者 在庫発注 - DONUT CAFE</title>
+    <link rel="stylesheet" th:href="@{/donut-cafe.css}">
+</head>
+<body>
+    <div class="wrap">
+        <div class="top-title">
+            <span>DONUT CAFE ADMIN</span>
+            <h1>管理者用 在庫管理・発注</h1>
+        </div>
+
+        <!-- 在庫10個以下の商品があるときのアラート -->
+        <div class="alert-banner" th:if="${lowStockCount != null and lowStockCount > 0}">
+            <strong>在庫アラート：</strong>
+            在庫が10個以下の商品が <span th:text="${lowStockCount}">0</span> 件あります。発注を行ってください。
+        </div>
+
+        <div class="notice-success" th:if="${successMessage != null}" th:text="${successMessage}"></div>
+        <div class="notice-error" th:if="${errorMessage != null}" th:text="${errorMessage}"></div>
+
+        <div class="box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>商品名</th>
+                        <th class="right">現在庫</th>
+                        <th>状態</th>
+                        <th>発注数・操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${items}"
+                        th:classappend="${item.stockQuantity != null and item.stockQuantity <= 10} ? 'row-low-stock' : ''">
+                        <td th:text="${item.name}">ドーナツ</td>
+                        <td class="right">
+                            <strong th:text="${item.stockQuantity != null ? item.stockQuantity : 0}">0</strong> 個
+                        </td>
+                        <td>
+                            <span class="badge-danger" th:if="${item.stockQuantity != null and item.stockQuantity <= 10}">
+                                要発注（10個以下）
+                            </span>
+                            <span class="badge-ok" th:unless="${item.stockQuantity != null and item.stockQuantity <= 10}">
+                                十分
+                            </span>
+                        </td>
+                        <td>
+                            <form th:action="@{/admin/inventory/order}" method="post" class="inline-order-form">
+                                <input type="hidden" name="itemId" th:value="${item.id}">
+                                <input type="number" name="orderQuantity" min="1" max="999" value="0" class="qty-input" required>
+                                <button type="submit" class="btn-order">発注する</button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <a th:href="@{/admin/dashboard}" class="btn-home">管理者ダッシュボードへ戻る</a>
+        </div>
+    </div>
+</body>
+</html>
