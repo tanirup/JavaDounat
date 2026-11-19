@@ -102,4 +102,48 @@ public class HelloController {
         }
         return "redirect:/cart";
     }
+    @GetMapping("/checkout")
+    public String checkout(HttpSession session, Model model) {
+        @SuppressWarnings("unchecked")
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        if (cart == null || cart.isEmpty()) {
+            return "redirect:/cart";
+        }
+
+        int totalPrice = cart.stream().mapToInt(CartItem::getSubtotal).sum();
+        model.addAttribute("cartItems", cart);
+        model.addAttribute("totalPrice", totalPrice);
+        return "checkout";
+    }
+
+@PostMapping("/checkout/complete")
+    public String completeCheckout(@RequestParam(required = false, defaultValue = "クレジットカード（疑似）") String paymentMethod,
+                                   HttpSession session,
+                                   Model model) {
+        @SuppressWarnings("unchecked")
+        List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+        if (cart == null || cart.isEmpty()) {
+            return "redirect:/items";
+        }
+
+        // 購入された数量分だけ在庫を減らしてDBに保存
+        for (CartItem ci : cart) {
+            itemRepository.findById(ci.getItemId()).ifPresent(item -> {
+                int currentStock = (item.getStockQuantity() != null) ? item.getStockQuantity() : 0;
+                int updatedStock = Math.max(0, currentStock - ci.getQuantity());
+                item.setStockQuantity(updatedStock);
+                itemRepository.save(item);
+            });
+        }
+
+        int totalPrice = cart.stream().mapToInt(CartItem::getSubtotal).sum();
+        model.addAttribute("orderedItems", new ArrayList<>(cart));
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("paymentMethod", paymentMethod);
+
+        // 決済完了後にカートをクリア
+        session.removeAttribute("cart");
+        return "order-complete";
+    }
 }
+

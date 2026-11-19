@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ショッピングカート｜DONUT CAFE</title>
   <link rel="stylesheet" th:href="@{/style.css}">
+  <link rel="stylesheet" th:href="@{/donut-cafe.css}">
 </head>
 <body>
 
@@ -21,6 +22,7 @@
 
   <main>
     <div class="cart-container">
+      
       <h2>ショッピングカート</h2>
       
       <div class="cart-empty" th:if="${cartItems == null || cartItems.isEmpty()}">
@@ -62,6 +64,9 @@
 
         <div class="cart-total">
           合計金額: <span>¥<span th:text="${totalPrice}">0</span></span>（税込）
+        </div>
+        <div class="cart-action" th:if="${!#lists.isEmpty(cartItems)}">
+          <a th:href="@{/checkout}" class="btn-go-checkout">決済に進む →</a>
         </div>
 
         <div class="button-group">

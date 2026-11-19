@@ -18,9 +18,12 @@ public class Item {
     private Integer isRecommended;
     private String imageUrl;
 
-    // --- 以下を手動で追加 ---
     public Long getId() { return id; }
     public String getName() { return name; }
+    public String getDescription() { return description; }
     public Integer getPrice() { return price; }
+    public Integer getStockQuantity() { return stockQuantity; }
+    public Integer getIsRecommended() { return isRecommended; }
     public String getImageUrl() { return imageUrl; }
+    public void setStockQuantity(Integer stockQuantity) { this.stockQuantity = stockQuantity; }
 }
