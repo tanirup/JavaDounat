@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${item.name + '｜DONUT CAFE'}">商品詳細｜DONUT CAFE</title>
+  <link rel="stylesheet" th:href="@{/style.css}" href="/style.css">
+  <link rel="stylesheet" th:href="@{/hamburger.css(v=6)}" href="/hamburger.css?v=6">
+  <link rel="stylesheet" th:href="@{/item-detail.css}" href="/item-detail.css">
+  <script th:src="@{/hamburger.js}" src="/hamburger.js" defer></script>
+  <script th:src="@{/item-detail.js}" src="/item-detail.js" defer></script>
+</head>
+<body class="item-detail-page">
+  <header th:replace="~{fragments/header :: siteHeader}"></header>
+  <main class="item-detail-container">
+    <p th:replace="~{fragments/session-notice :: notice}"></p>
+    <nav class="detail-breadcrumb" aria-label="パンくずリスト">
+      <a th:href="@{/}" href="/">ホーム</a><span aria-hidden="true">/</span>
+      <a th:href="@{/items}" href="/items">商品一覧</a><span aria-hidden="true">/</span>
+      <span aria-current="page" th:text="${item.name}">商品名</span>
+    </nav>
+    <article class="detail-layout">
+      <div class="detail-photo"><img th:src="@{${item.imageUrl}}" th:alt="${item.name}" alt="ドーナツ"></div>
+      <div class="detail-content">
+        <p class="detail-eyebrow">OUR DONUTS</p>
+        <h2 th:text="${item.name}">商品名</h2>
+        <p class="detail-description" th:text="${item.description}">商品説明</p>
+        <p class="detail-price">¥<span th:text="${item.price}">240</span><small>（税込・1個）</small></p>
+        <section class="detail-allergens" aria-labelledby="allergen-title">
+          <div class="detail-section-heading">
+            <h3 id="allergen-title">アレルギー情報</h3>
+            <span class="allergen-status" th:text="${allergens.reference ? '参考情報' : '登録済み情報'}">参考情報</span>
+          </div>
+          <p th:if="${allergens.reference}" class="allergen-explanation">
+            一般的なイーストドーナツに使われるアレルゲンの例です。この商品の原材料を確認した情報ではありません。
+          </p>
+          <ul class="allergen-tags" th:unless="${#lists.isEmpty(allergens.names)}" aria-label="アレルゲン">
+            <li th:each="name : ${allergens.names}" th:text="${name}">小麦</li>
+          </ul>
+          <p th:if="${!allergens.reference and #lists.isEmpty(allergens.names)}" class="allergen-explanation">アレルゲンの登録はありません。詳しくは店舗にお問い合わせください。</p>
+          <p class="allergen-note">アレルギーをお持ちの方は、ご購入前に店舗へご確認ください。</p>
+          <a th:if="${allergens.reference}" class="allergen-source" href="https://www.misterdonut.jp/m_menu/eiyou/allergen_eng.pdf" target="_blank" rel="noopener noreferrer">
+            参考：ミスタードーナツ公式アレルギー情報（2026年11月1日版・PDF）
+          </a>
+        </section>
+        <p th:if="${quantityError}" th:text="${quantityError}" class="detail-alert" role="alert"></p>
+        <form class="detail-cart-form" th:action="@{/cart/add}" action="/cart/add" method="post" th:data-price="${item.price}" data-quantity-selector>
+          <input type="hidden" name="itemId" th:value="${item.id}">
+          <label class="detail-quantity-label" for="detail-quantity">数量</label>
+          <p th:if="${alreadyInCart > 0}" class="detail-cart-count">カートに<span th:text="${alreadyInCart}">1</span>個入っています。</p>
+          <div class="quantity-controller">
+            <button class="qty-btn" type="button" data-step="-1" aria-label="数量を減らす" th:disabled="${maxQuantity == 0}">−</button>
+            <input id="detail-quantity" class="qty-input" type="number" name="quantity" value="1" min="1"
+                   th:max="${maxQuantity > 0 ? maxQuantity : 1}" th:disabled="${maxQuantity == 0}" required aria-describedby="quantity-help">
+            <button class="qty-btn" type="button" data-step="1" aria-label="数量を増やす" th:disabled="${maxQuantity == 0}">＋</button>
+          </div>
+          <p id="quantity-help" class="detail-cart-count" th:if="${maxQuantity > 0}">あと<span th:text="${maxQuantity}">10</span>個追加できます（1商品につき最大<span th:text="${limit}">10</span>個）。</p>
+          <p class="detail-subtotal" th:if="${maxQuantity > 0}">選択数量の小計：¥<output id="detail-subtotal" for="detail-quantity" th:text="${item.price}" aria-live="polite">240</output><small>（税込）</small></p>
+          <p th:if="${maxQuantity == 0}" class="detail-alert" role="status" th:text="${limit == 0 ? 'この商品は現在売り切れです。' : 'カートの数量が上限に達しています。カートで数量を変更してください。'}"></p>
+          <button type="submit" class="button detail-add-button" th:disabled="${maxQuantity == 0}" th:text="${limit == 0 ? '売り切れ' : 'カートに追加する'}">カートに追加する</button>
+        </form>
+        <div class="detail-links"><a th:href="@{/items}" href="/items">商品一覧に戻る</a><a th:href="@{/cart}" href="/cart">カートを見る</a></div>
+      </div>
+    </article>
+  </main>
+  <footer><p>DONUT CAFE</p><p>&copy; 2026 DONUT CAFE. All Rights Reserved.</p></footer>
+</body>
+</html>

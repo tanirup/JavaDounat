@@ -18,42 +18,18 @@
   <link rel="stylesheet"
         th:href="@{/login.css}"
         href="/login.css">
+  <link rel="stylesheet" th:href="@{/hamburger.css(v=6)}" href="/hamburger.css?v=6">
+  <script th:src="@{/hamburger.js}" src="/hamburger.js" defer></script>
 </head>
 
 <body class="login-page">
 
   <!-- ヘッダー -->
-  <header class="header">
-    <h1>DONUT CAFE 🍩</h1>
-
-    <nav>
-      <a th:href="@{/}" href="/">
-        ホーム
-      </a>
-
-      <a th:href="@{/items}"
-         href="/items">
-        商品一覧
-      </a>
-
-      <a th:href="@{/cart}" href="/cart">
-        カート
-      </a>
-
-      <a th:href="@{/#about}"
-         href="/#about">
-        お店について
-      </a>
-
-      <a th:href="@{/#contact}"
-         href="/#contact">
-        お問い合わせ
-      </a>
-    </nav>
-  </header>
+  <header th:replace="~{fragments/header :: siteHeader}"></header>
 
   <!-- ログイン画面 -->
   <main class="home-container login-section">
+    <p th:replace="~{fragments/session-notice :: notice}"></p>
 
     <section class="home-card login-container" aria-labelledby="login-title">
 
@@ -67,6 +43,12 @@
       </p>
 
       <!-- ログイン失敗 -->
+      <p th:if="${param.profileUpdated}" class="success-message" role="status">
+        プロフィールを保存しました。新しいメールアドレスでログインしてください。
+      </p>
+      <p th:if="${param.registered}" class="success-message" role="status">
+        会員登録が完了しました。登録したメールアドレスとパスワードでログインしてください。
+      </p>
       <p th:if="${param.error}"
          class="error-message" role="alert">
         メールアドレスまたはパスワードが違います。
@@ -82,12 +64,6 @@
       <form th:action="@{/login}"
             action="/login"
             method="post">
-
-        <!-- CSRF対策 -->
-        <input type="hidden"
-               th:if="${_csrf != null}"
-               th:name="${_csrf.parameterName}"
-               th:value="${_csrf.token}">
 
         <!-- メールアドレス -->
         <div class="form-group">

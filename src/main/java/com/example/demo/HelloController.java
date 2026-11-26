@@ -6,6 +6,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
@@ -25,11 +28,6 @@ public class HelloController {
     @GetMapping("/login")
     public String login() {
         return "login";
-    }
-
-    @GetMapping({"/register", "/signup"})
-    public String signup() {
-        return "signup";
     }
 
     @GetMapping("/items")
@@ -58,43 +56,57 @@ public class HelloController {
 
     // カートに商品を追加
     @PostMapping("/cart/add")
-    public String addToCart(@RequestParam Long itemId, @RequestParam int quantity, HttpSession session) {
+    public String addToCart(@RequestParam Long itemId, @RequestParam int quantity, HttpSession session,
+                            RedirectAttributes redirect) {
         @SuppressWarnings("unchecked")
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
         if (cart == null) {
             cart = new ArrayList<>();
         }
 
-        Item item = itemRepository.findById(itemId).orElse(null);
-        if (item != null) {
-            boolean found = false;
-            for (CartItem ci : cart) {
-                if (ci.getItemId().equals(itemId)) {
-                    ci.setQuantity(ci.getQuantity() + quantity);
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                cart.add(new CartItem(item.getId(), item.getName(), item.getPrice(), item.getImageUrl(), quantity));
-            }
-            session.setAttribute("cart", cart);
+        Item item = itemRepository.findById(itemId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        int limit = CartPolicy.limitFor(item);
+        if (quantity < 1 || quantity > limit || CartPolicy.quantityInCart(cart, itemId) > limit - quantity) {
+            redirect.addFlashAttribute("quantityError", limit == 0 ? "この商品は現在売り切れです。"
+                    : "この商品はカート内の数量を含めて" + limit + "個まで追加できます。");
+            return "redirect:/items/" + itemId;
         }
+        boolean found = false;
+        for (CartItem ci : cart) {
+            if (ci.getItemId().equals(itemId)) {
+                ci.setQuantity(ci.getQuantity() + quantity);
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            cart.add(new CartItem(item.getId(), item.getName(), item.getPrice(), item.getImageUrl(), quantity));
+        }
+        session.setAttribute("cart", cart);
 
+        redirect.addFlashAttribute("cartSuccess", "商品をカートに追加しました。");
         return "redirect:/cart";
     }
 
     // 【新規追加】カート内の商品数量を変更
     @PostMapping("/cart/update")
-    public String updateCart(@RequestParam Long itemId, @RequestParam int quantity, HttpSession session) {
+    public String updateCart(@RequestParam Long itemId, @RequestParam int quantity, HttpSession session,
+                             RedirectAttributes redirect) {
+        Item product = itemRepository.findById(itemId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        if (quantity < 1 || quantity > CartPolicy.limitFor(product)) {
+            redirect.addFlashAttribute("cartError", CartPolicy.limitFor(product) == 0
+                    ? "この商品は現在売り切れです。カートから削除してください。"
+                    : "数量は1〜" + CartPolicy.limitFor(product) + "個の範囲で指定してください。");
+            return "redirect:/cart";
+        }
         @SuppressWarnings("unchecked")
         List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
         if (cart != null) {
             for (CartItem ci : cart) {
                 if (ci.getItemId().equals(itemId)) {
-                    if (quantity > 0) {
-                        ci.setQuantity(quantity);
-                    }
+                    ci.setQuantity(quantity);
                     break;
                 }
             }

@@ -6,42 +6,39 @@
   <title>新規会員登録 | DONUT CAFE</title>
   <link rel="stylesheet" th:href="@{/style.css}" href="/style.css">
   <link rel="stylesheet" th:href="@{/login.css}" href="/login.css">
+  <link rel="stylesheet" th:href="@{/hamburger.css(v=6)}" href="/hamburger.css?v=6">
+  <script th:src="@{/hamburger.js}" src="/hamburger.js" defer></script>
 </head>
 
 <body class="login-page">
 
-  <header class="header">
-    <h1>DONUT CAFE 🍩</h1>
-    <nav>
-      <a th:href="@{/}" href="/">ホーム</a>
-      <a th:href="@{/items}" href="/items">商品一覧</a>
-      <a th:href="@{/cart}" href="/cart">カート</a>
-      <a th:href="@{/#about}" href="/#about">お店について</a>
-      <a th:href="@{/#contact}" href="/#contact">お問い合わせ</a>
-    </nav>
-  </header>
+  <header th:replace="~{fragments/header :: siteHeader}"></header>
   
   <main class="home-container login-section">
+    <p th:replace="~{fragments/session-notice :: notice}"></p>
     <section class="home-card login-container" aria-labelledby="signup-title">
     <h2 id="signup-title">新規会員登録</h2>
 
     <!-- エラーメッセージ表示 -->
     <p th:if="${errorMessage}" th:text="${errorMessage}" class="error-message" role="alert"></p>
 
-    <form th:action="@{/register}" action="/register" method="post" onsubmit="return checkPassword()">
+    <form th:action="@{/register}" th:object="${registration}" action="/register" method="post" onsubmit="return checkPassword()">
+      <div th:if="${#fields.hasAnyErrors()}" class="error-message" role="alert">
+        <p th:each="error : ${#fields.allErrors()}" th:text="${error}"></p>
+      </div>
       <div class="form-group">
         <label for="name">ユーザー名</label>
-        <input type="text" id="name" name="name" autocomplete="name" placeholder="ユーザー名" required>
+        <input type="text" id="name" name="name" th:value="${registration.name}" maxlength="100" autocomplete="name" placeholder="ユーザー名" required>
       </div>
 
       <div class="form-group">
         <label for="email">メールアドレス</label>
-        <input type="email" id="email" name="email" autocomplete="email" placeholder="example@mail.com" required>
+        <input type="email" id="email" name="email" th:value="${registration.email}" maxlength="254" autocomplete="email" placeholder="example@mail.com" required>
       </div>
 
       <div class="form-group">
         <label for="password">パスワード</label>
-        <input type="password" id="password" name="password" autocomplete="new-password" placeholder="パスワード" required>
+        <input type="password" id="password" name="password" minlength="8" maxlength="72" autocomplete="new-password" placeholder="8文字以上のパスワード" required>
       </div>
 
       <div class="form-group">

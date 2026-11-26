@@ -14,30 +14,6 @@
       padding: 0;
     }
 
-    .header {
-      background-color: #ffffff;
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 15px rgba(91, 64, 56, 0.06);
-    }
-    .header h1 {
-      margin: 0;
-      color: #d96b87;
-      font-size: 26px;
-      letter-spacing: 1px;
-    }
-    .header nav a {
-      text-decoration: none;
-      color: #755044;
-      margin-left: 25px;
-      font-weight: bold;
-      font-size: 15px;
-    }
-    .header nav a:hover {
-      color: #d96b87;
-    }
 
     .button {
       background-color: #d96b87 !important;
@@ -104,22 +80,15 @@
     }
 
   </style>
+  <link rel="stylesheet" th:href="@{/hamburger.css(v=6)}" href="/hamburger.css?v=6">
+  <script th:src="@{/hamburger.js}" src="/hamburger.js" defer></script>
 </head>
 <body>
 
-  <header class="header">
-    <h1>DONUT CAFE 🍩</h1>
-    <nav>
-      <a th:href="@{/}">ホーム</a>
-      <a th:href="@{/items}">商品一覧</a>
-      <a th:href="@{/cart}">カート</a>
-      <a th:href="@{/#about}">お店について</a>
-      <a th:href="@{/#contact}">お問い合わせ</a>
-      <a th:href="@{/login}" href="/login">ログイン</a>
-    </nav>
-  </header>
+  <header th:replace="~{fragments/header :: siteHeader}"></header>
 
   <main>
+    <p th:replace="~{fragments/session-notice :: notice}"></p>
     <section class="hero">
       <h2>手作りドーナツの専門店</h2>
       <p>サクッとふんわり、素材にこだわった優しい甘さをお届けします。</p>

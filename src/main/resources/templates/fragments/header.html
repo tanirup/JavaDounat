@@ -1,0 +1,28 @@
+<header xmlns:th="http://www.thymeleaf.org" th:fragment="siteHeader" class="header">
+  <div class="header-brand">
+    <h1>DONUT CAFE 🍩</h1>
+  </div>
+  <button class="menu-toggle" type="button" aria-label="メニューを開く"
+          aria-expanded="false" aria-controls="header-nav">
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+    <span aria-hidden="true"></span>
+  </button>
+  <nav id="header-nav" aria-label="メインナビゲーション">
+    <a th:href="@{/}" href="/">ホーム</a>
+    <a th:href="@{/items}" href="/items">商品一覧</a>
+    <a th:href="@{/cart}" href="/cart">カート</a>
+    <a th:href="@{/#about}" href="/#about">お店について</a>
+    <a th:href="@{/#contact}" href="/#contact">お問い合わせ</a>
+    <a class="header-auth-link" th:if="${currentUser == null}" th:href="@{/login}" href="/login">ログイン</a>
+    <form class="header-logout" th:if="${currentUser != null}" th:action="@{/logout}" action="/logout" method="post">
+      <button class="header-auth-link" type="submit">ログアウト</button>
+    </form>
+  </nav>
+  <a th:if="${accountProfile != null}" class="profile-icon" th:href="@{/profile}" href="/profile"
+     th:aria-label="${accountProfile.name + 'さんのプロフィールを開く'}"
+     title="プロフィール" data-avatar-container>
+    <img th:if="${accountProfile.hasAvatar}" th:src="@{/profile/avatar(v=${accountProfile.avatarVersion})}" alt="">
+    <span data-avatar-fallback th:hidden="${accountProfile.hasAvatar}" th:text="${accountProfile.initial()}">D</span>
+  </a>
+</header>

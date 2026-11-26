@@ -12,6 +12,20 @@ body {
     padding: 0;
 }
 
+.session-notice {
+    box-sizing: border-box;
+    width: calc(100% - 40px);
+    max-width: 750px;
+    margin: 24px auto;
+    padding: 16px 20px;
+    border: 1px solid #d96b87;
+    border-radius: 12px;
+    background-color: #fff0f3;
+    color: #5b4038;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
 /* --- ヘッダー --- */
 .header {
     background-color: #ffffff;

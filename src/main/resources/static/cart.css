@@ -1,0 +1,66 @@
+/* カートのフッターは、スクロール位置に関係なく画面下端へ固定。 */
+.cart-page {
+    --cart-footer-height: 132px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    min-height: 100dvh;
+    box-sizing: border-box;
+    /* 固定フッターに商品や操作ボタンが隠れないよう領域を確保。 */
+    padding-bottom: calc(var(--cart-footer-height) + env(safe-area-inset-bottom, 0px));
+}
+
+.cart-page > .header {
+    flex-shrink: 0;
+}
+
+.cart-page > main {
+    flex: 1;
+    min-width: 0;
+}
+
+.cart-success {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #eaf5ed;
+    border-color: #a8d5b5;
+    color: #286342;
+}
+
+.cart-success-icon {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #397d53;
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.cart-page > footer {
+    position: fixed;
+    inset: auto 0 0;
+    z-index: 90;
+    box-sizing: border-box;
+    height: calc(var(--cart-footer-height) + env(safe-area-inset-bottom, 0px));
+    margin: 0;
+    padding: 24px 20px calc(24px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    background-color: #5b4038;
+    color: #faf6f0;
+    font-size: 13px;
+    line-height: 1.6;
+    text-align: center;
+}
+
+.cart-page > footer p {
+    margin: 0;
+}

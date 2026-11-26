@@ -15,6 +15,10 @@ public class Item {
     private Integer stockQuantity;
     private Integer isRecommended;
     private String imageUrl;
+    private boolean allergenInfoVerified;
+
+    public boolean isAllergenInfoVerified() { return allergenInfoVerified; }
+    public void setAllergenInfoVerified(boolean verified) { this.allergenInfoVerified = verified; }
 
     public Long getId() {
         return id;

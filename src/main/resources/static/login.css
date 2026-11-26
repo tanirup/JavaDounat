@@ -105,25 +105,8 @@
     background-color: #e5f6e8;
 }
 
-/* 狭い画面ではヘッダーを折り返し、フォームの余白を調整 */
+/* 狭い画面ではフォームの余白を調整（ヘッダーは hamburger.css で管理） */
 @media (max-width: 700px) {
-    .login-page .header {
-        flex-direction: column;
-        gap: 20px;
-        padding: 20px;
-    }
-
-    .login-page .header nav {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 15px 20px;
-    }
-
-    .login-page .header nav a {
-        margin-left: 0;
-    }
-
     .login-section {
         margin: 40px auto;
         padding: 0 15px;

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プロフィール | DONUT CAFE</title>
+  <link rel="stylesheet" th:href="@{/style.css}" href="/style.css">
+  <link rel="stylesheet" th:href="@{/login.css}" href="/login.css">
+  <link rel="stylesheet" th:href="@{/hamburger.css(v=6)}" href="/hamburger.css?v=6">
+  <link rel="stylesheet" th:href="@{/profile.css(v=2)}" href="/profile.css?v=2">
+  <script th:src="@{/hamburger.js}" src="/hamburger.js" defer></script>
+  <script th:src="@{/avatar-editor.js}" src="/avatar-editor.js" defer></script>
+</head>
+<body class="profile-page">
+  <header th:replace="~{fragments/header :: siteHeader}"></header>
+  <main class="home-container login-section">
+    <p th:replace="~{fragments/session-notice :: notice}"></p>
+    <section class="home-card login-container" aria-labelledby="profile-title">
+      <div class="profile-avatar" aria-hidden="true" data-avatar-container>
+        <img th:if="${accountProfile != null and accountProfile.hasAvatar}" th:src="@{/profile/avatar(v=${accountProfile.avatarVersion})}" alt="">
+        <span data-avatar-fallback th:hidden="${accountProfile != null and accountProfile.hasAvatar}"
+              th:text="${accountProfile != null ? accountProfile.initial() : '🍩'}">D</span>
+      </div>
+      <div class="avatar-controls" hidden>
+        <button type="button" class="avatar-action" id="choose-avatar">画像を変更</button>
+        <button type="button" class="avatar-action avatar-action-muted" id="remove-avatar"
+                th:hidden="${accountProfile == null or !accountProfile.hasAvatar}"
+                th:data-url="@{/profile/avatar/delete}">名前のアイコンに戻す</button>
+        <input id="avatar-file" type="file" accept="image/jpeg,image/png,image/webp" hidden>
+      </div>
+      <p id="avatar-status" class="avatar-status" role="status" aria-live="polite"></p>
+      <noscript><p class="profile-note">画像の変更にはJavaScriptを有効にしてください。</p></noscript>
+      <h2 id="profile-title">プロフィール</h2>
+      <p class="profile-intro">あなたの情報を確認・変更できます。</p>
+      <p th:if="${param.registered}" class="success-message" role="status">会員登録が完了しました。右上のアイコンからいつでもプロフィールを開けます。</p>
+      <p th:if="${param.saved}" class="success-message" role="status">プロフィールを保存しました。</p>
+      <form th:action="@{/profile}" action="/profile" method="post" th:object="${profile}">
+        <div th:if="${#fields.hasAnyErrors()}" class="error-message" role="alert">
+          <p th:each="error : ${#fields.allErrors()}" th:text="${error}"></p>
+        </div>
+        <div class="form-group">
+          <label for="name">ユーザー名</label>
+          <input id="name" name="name" type="text" th:value="${profile.name}" maxlength="100" autocomplete="nickname" required>
+        </div>
+        <div class="form-group">
+          <label for="email">メールアドレス</label>
+          <input id="email" name="email" type="email" th:value="${profile.email}" maxlength="254" autocomplete="email" aria-describedby="email-note" required>
+          <p id="email-note" class="profile-note">変更した場合は、新しいメールアドレスでログインし直してください。</p>
+        </div>
+        <div class="form-group">
+          <label for="birthday">誕生日（任意）</label>
+          <input id="birthday" name="birthday" type="date" th:value="${profile.birthday}" autocomplete="bday">
+        </div>
+        <div class="form-group">
+          <label for="telNo">電話番号（任意）</label>
+          <input id="telNo" name="telNo" type="tel" th:value="${profile.telNo}" maxlength="20" autocomplete="tel" placeholder="090-1234-5678">
+        </div>
+        <button type="submit" class="button login-button">変更を保存する</button>
+      </form>
+      <p class="register-text"><a th:href="@{/}" href="/">ホームに戻る</a></p>
+      <dialog id="avatar-editor" class="avatar-dialog" aria-labelledby="avatar-editor-title" aria-describedby="avatar-editor-help">
+        <form id="avatar-form" th:action="@{/profile/avatar}" action="/profile/avatar" method="post" enctype="multipart/form-data"
+              th:data-csrf-header="${_csrf.headerName}">
+          <h2 id="avatar-editor-title">アイコンを調整</h2>
+          <p id="avatar-editor-help">画像をドラッグして位置を調整できます。<br>スマホでは2本指で拡大・縮小できます。</p>
+          <div class="avatar-crop-stage">
+            <canvas id="avatar-canvas" width="512" height="512" tabindex="0" role="img"
+                    aria-label="アイコンの切り抜き範囲。矢印キーで位置、プラス・マイナスキーで倍率を調整できます。"></canvas>
+          </div>
+          <div class="avatar-zoom-control">
+            <label for="avatar-zoom">拡大・縮小</label>
+            <input id="avatar-zoom" type="range" min="1" max="4" step="0.01" value="1">
+            <output id="avatar-zoom-value" for="avatar-zoom">100%</output>
+          </div>
+          <div class="avatar-adjust-actions">
+            <button type="button" class="avatar-action" id="rotate-avatar">90°回転</button>
+            <button type="button" class="avatar-action" id="reset-avatar">調整をリセット</button>
+          </div>
+          <p id="avatar-editor-error" class="avatar-status" role="alert"></p>
+          <div class="avatar-dialog-actions">
+            <button type="button" class="avatar-action" id="cancel-avatar">キャンセル</button>
+            <button type="submit" class="button" id="save-avatar">この画像で保存</button>
+          </div>
+        </form>
+      </dialog>
+    </section>
+  </main>
+  <footer><p>DONUT CAFE</p><p>&copy; 2026 DONUT CAFE. All Rights Reserved.</p></footer>
+</body>
+</html>

@@ -5,23 +5,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ショッピングカート｜DONUT CAFE</title>
   <link rel="stylesheet" th:href="@{/style.css}">
+  <link rel="stylesheet" th:href="@{/hamburger.css(v=6)}" href="/hamburger.css?v=6">
+  <link rel="stylesheet" th:href="@{/cart.css(v=2)}" href="/cart.css?v=2">
+  <script th:src="@{/hamburger.js}" src="/hamburger.js" defer></script>
 </head>
-<body>
+<body class="cart-page">
 
-  <header class="header">
-    <h1>DONUT CAFE 🍩</h1>
-    <nav>
-      <a th:href="@{/}">ホーム</a>
-      <a th:href="@{/items}">商品一覧</a>
-      <a th:href="@{/cart}">カート</a>
-      <a th:href="@{/#about}">お店について</a>
-      <a th:href="@{/#contact}">お問い合わせ</a>
-    </nav>
-  </header>
+  <header th:replace="~{fragments/header :: siteHeader}"></header>
 
   <main>
+    <p th:replace="~{fragments/session-notice :: notice}"></p>
     <div class="cart-container">
       <h2>ショッピングカート</h2>
+      <p th:if="${cartSuccess}" role="status" class="session-notice cart-success">
+        <span class="cart-success-icon" aria-hidden="true">✓</span>
+        <span th:text="${cartSuccess}">商品をカートに追加しました。</span>
+      </p>
+      <p th:if="${cartError}" th:text="${cartError}" role="alert" class="session-notice"></p>
       
       <div class="cart-empty" th:if="${cartItems == null || cartItems.isEmpty()}">
         <p>カートに商品は入っていません。</p>
