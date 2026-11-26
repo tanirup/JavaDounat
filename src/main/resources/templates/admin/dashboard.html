@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>管理者ダッシュボード - DONUT CAFE</title>
+    <link rel="stylesheet" th:href="@{/donut-cafe.css}">
+</head>
+<body>
+    <div class="wrap">
+        <div class="top-title">
+            <span>DONUT CAFE ADMIN</span>
+            <h1>管理者ダッシュボード</h1>
+        </div>
+
+        <div class="alert-banner" th:if="${lowStockCount != null and lowStockCount > 0}">
+            <strong>在庫アラート：</strong>
+            在庫が10個以下の商品が <span th:text="${lowStockCount}">0</span> 件あります。
+        </div>
+
+        <div class="dashboard-cards">
+            <!-- 在庫管理・発注カード -->
+            <a th:href="@{/admin/inventory}" class="nav-card">
+                <div class="nav-card-title">在庫管理・発注へ進む →</div>
+                <div class="nav-card-desc">
+                    現在の在庫状況を確認し、不足商品の追加発注を行います。
+                    <span th:if="${lowStockCount != null and lowStockCount > 0}">
+                        （要発注 <strong th:text="${lowStockCount}">0</strong> 件）
+                    </span>
+                </div>
+            </a>
+
+            <!-- 注文履歴カード -->
+            <a th:href="@{/admin/orders}" class="nav-card">
+                <div class="nav-card-title">注文履歴を見る →</div>
+                <div class="nav-card-desc">
+                    お客様からの注文一覧（<strong th:text="${orderCount ?: 0}">0</strong> 件）を確認します。
+                </div>
+            </a>
+
+            <!-- 発注履歴カード -->
+            <a th:href="@{/admin/stock-orders}" class="nav-card">
+                <div class="nav-card-title">発注履歴を見る →</div>
+                <div class="nav-card-desc">
+                    これまでに実施した在庫発注一覧（<strong th:text="${stockOrderCount ?: 0}">0</strong> 件）を確認します。
+                </div>
+            </a>
+        </div>
+
+        <a th:href="@{/items}" class="back-link">← 商品一覧へ戻る</a>
+    </div>
+</body>
+</html>

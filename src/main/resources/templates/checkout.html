@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>疑似決済 - DONUT CAFE</title>
+    <link rel="stylesheet" th:href="@{/donut-cafe.css}">
+</head>
+<body>
+    <div class="wrap">
+        <div class="top-title">
+            <span>DONUT CAFE</span>
+            <h1>お支払い内容の確認（疑似決済）</h1>
+        </div>
+
+        <div class="box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>商品名</th>
+                        <th class="right">単価</th>
+                        <th class="right">数量</th>
+                        <th class="right">小計</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${cartItems}">
+                        <td th:text="${item.name}">ドーナツ</td>
+                        <td class="right" th:text="${item.price} + '円'">300円</td>
+                        <td class="right" th:text="${item.quantity}">1</td>
+                        <td class="right" th:text="${item.subtotal} + '円'">300円</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="total-bar">
+                <span>お支払い合計</span>
+                <span class="total-price" th:text="${totalPrice} + '円'">0円</span>
+            </div>
+
+            <form th:action="@{/checkout/complete}" method="post">
+                <div class="field">
+                    <label for="paymentMethod">お支払い方法（疑似）</label>
+                    <select id="paymentMethod" name="paymentMethod">
+                        <option value="クレジットカード（疑似）">クレジットカード（疑似）</option>
+                        <option value="QRコード決済（疑似）">QRコード決済（疑似）</option>
+                        <option value="代引き（疑似）">代引き（疑似）</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-pay">決済を確定する</button>
+            </form>
+        </div>
+
+        <a th:href="@{/cart}" class="back-link">← カートに戻る</a>
+    </div>
+</body>
+</html>

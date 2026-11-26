@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ご注文完了 - DONUT CAFE</title>
+    <link rel="stylesheet" th:href="@{/donut-cafe.css}">
+</head>
+<body>
+    <div class="wrap">
+        <div class="top-title">
+            <span>DONUT CAFE</span>
+            <h1>ご注文ありがとうございました</h1>
+        </div>
+
+        <div class="box">
+            <div class="status-banner">
+                <span class="status-badge">疑似決済完了</span>
+                <p>ご注文を受け付けました。在庫も更新されています。</p>
+            </div>
+
+            <div class="summary-row">
+                <span>お支払い方法</span>
+                <strong th:text="${paymentMethod}">クレジットカード（疑似）</strong>
+            </div>
+
+            <div class="total-bar">
+                <span>お支払い合計</span>
+                <span class="total-price" th:text="${totalPrice} + '円'">0円</span>
+            </div>
+
+            <h2 class="items-heading">ご注文内容</h2>
+            <ul class="item-list">
+                <li th:each="item : ${orderedItems}">
+                    <div>
+                        <span th:text="${item.name}">商品名</span>
+                        <span class="item-qty" th:text="'× ' + ${item.quantity}">× 1</span>
+                    </div>
+                    <strong th:text="${item.subtotal} + '円'">300円</strong>
+                </li>
+            </ul>
+
+            <a th:href="@{/items}" class="btn-home">商品一覧へ戻る</a>
+        </div>
+    </div>
+</body>
+</html>
